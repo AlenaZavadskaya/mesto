@@ -55,25 +55,11 @@
 
 @media screen and (max-width: 880px) {
 	.header {
-		max-width: 679px;
-		margin: 35px auto 41px;
+		max-width: 580px;
 	}
 }
 
-@media screen and (max-width: 680px) {
-	.header {
-		max-width: 579px;
-		margin: 35px auto 41px;
-	}
-}
-
-@media screen and (max-width: 582px) {
-	.header {
-		max-width: 459px;
-	}
-}
-
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.header {
 		max-width: 320px;
 		margin: 28px auto 42px;
@@ -85,7 +71,7 @@
 	height: 33.4px;
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.logo {
 		width: 103.74px;
 		height: 24.4px;
@@ -99,29 +85,15 @@
 
 @media screen and (max-width: 880px) {
 	.line {
-		max-width: 679px;
+		max-width: 580px;
 	}
 }
 
-@media screen and (max-width: 680px) {
-	.line {
-		max-width: 579px;
-	}
-}
-
-@media screen and (max-width: 582px) {
-	.line {
-		max-width: 459px;
-	}
-}
-
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.line {
 		max-width: 320px;
 	}
 }
-
-
 
 .profile {
 	max-width: 882px;
@@ -131,26 +103,12 @@
 
 @media screen and (max-width: 880px) {
 	.profile {
-		max-width: 680px;
-		margin: 0 auto 42px;
-	}
-}
-
-@media screen and (max-width: 680px) {
-	.profile {
 		max-width: 580px;
-		margin: 0 auto 40px;
-	}
-}
-
-@media screen and (max-width: 582px) {
-	.profile {
-		max-width: 459px;
 		margin: 0 auto 38px;
 	}
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.profile {
 		max-width: 282px;
 		margin: 0 auto 36px;
@@ -168,7 +126,7 @@
 	margin-right: 30px;
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.avatar {
 		margin: 0 0 14px 0;
 	}
@@ -179,16 +137,10 @@
 	justify-content: space-between;
 	align-items: center;
 	width: calc(882px - 120px - 30px);
+	box-sizing: border-box;
 }
 
-@media screen and (max-width: 582px) {
-	.container {
-		flex-direction: column;
-		align-items: flex-start;
-		}
-}
-
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.container {
 		display: flex;
 		flex-direction: column;
@@ -203,11 +155,23 @@
 	min-height: 43px;
 	margin-bottom: 16px;
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 }
 
+@media screen and (max-width: 880px) {
+	.profile__container {
+		margin: 0 0 36px;
+	}
+}
 
-.profile__header {
+@media screen and (max-width: 580px) {
+	.profile__container {
+		text-align: center;
+		margin: 0 auto 36px;
+	}
+}
+
+.profile__name {
 	font-family: Inter;
 	font-style: normal;
 	font-weight: 500;
@@ -221,21 +185,14 @@
 }
 
 @media screen and (max-width: 880px) {
-	.profile__header {
-		font-size: 34px;
-		margin: 0 10px 0 0;
-	}
-}
-
-@media screen and (max-width: 680px) {
-	.profile__header {
+	.profile__name {
 		font-size: 30px;
 		margin: 0 5px 0 0;
 	}
 }
 
-@media screen and (max-width: 460px) {
-	.profile__header {
+@media screen and (max-width: 580px) {
+	.profile__name {
 		font-size: 27px;
 		width: 201px;
 		margin: 0 1px 0 0;
@@ -255,7 +212,12 @@
 	opacity: .8;
  }
 
-.profile__paragraph {
+ .edit-button:focus {
+	outline: none;
+ } 
+
+
+.profile__about {
 	font-family: Inter;
 font-style: normal;
 font-weight: normal;
@@ -270,23 +232,16 @@ text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 880px) {
-	.profile__paragraph {
+	.profile__about {
 		font-size: 16px;
 line-height: 19px;
 	}
 }
 
-@media screen and (max-width: 460px) {
-	.profile__paragraph {
+@media screen and (max-width: 580px) {
+	.profile__about {
 		font-size: 14px;
 line-height: 17px;
-	}
-}
-
-@media screen and (max-width: 460px) {
-	.profile__container {
-		text-align: center;
-		margin: 0 auto 36px;
 	}
 }
 
@@ -303,7 +258,13 @@ transition: 0.3s linear;
 	opacity: .8;
  }
 
-@media screen and (max-width: 460px) {
+
+ .add-button:focus {
+	outline: none;
+ }
+ 
+
+@media screen and (max-width: 580px) {
 	.add-button {
 		width: 282px;
 	}
@@ -325,7 +286,7 @@ gap: 21px 18px;
 justify-content: center;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 580px) {
 	.elements__cards {
 		gap: 20px;
 	}
@@ -375,6 +336,10 @@ margin: 0 auto;
 	opacity: .8;
  }
 
+ .element__like:focus {
+	outline: none;
+ }
+
 .footer {
 	max-width: 882px;
 	margin: 0 auto 60px;
@@ -392,33 +357,19 @@ color: #545454;
 
 @media screen and (max-width: 880px) {
 	.footer {
-		max-width: 679px;
-margin: 0 auto 48px;
-}
-}
-
-@media screen and (max-width: 680px) {
-	.footer {
-		max-width: 579px;
+		max-width: 580px;
 margin: 0 auto 42px;
 }
 }
 
-@media screen and (max-width: 582px) {
-	.footer {
-		max-width: 459px;
-margin: 0 auto 42px;
-}
-}
-
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.footer {
 		max-width: 282px;
 margin: 0 auto 36px;
 }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 580px) {
 	.footer__copyright {
 		font-size: 14px;
 line-height: 17px;
@@ -426,26 +377,43 @@ line-height: 17px;
 }
 
 .popup {
-	background: rgba(255, 255, 255, .95);
+	/*background: rgba(255, 255, 255, .95);
 	position: fixed;
 	top: 20%;
 	left: 50%;
 	transform: translateX(-50%);
 	max-width: 430px;
 	min-height: 330px;
-	background: #FFFFFF;
+	
 box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-border-radius: 10px;
-font-family: Inter;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
+border-radius: 10px;*/
 
+display: none;
+top: 0;
+left: 0;
+bottom: 0;
+right: 0;
+position: fixed;
+background: rgba(0, 0, 0, 0.5);
+z-index: 100;
  }
+
+.popup_opened {
+	display: block;
+}
 
  .popup__container {
 margin: 0 auto;
+position: fixed;
+	top: 20%;
+	left: 50%;
+	transform: translateX(-50%);
+	max-width: 430px;
+	box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+	border-radius: 10px;
+	background: #FFFFFF;
+	box-sizing: border-box;
+	font-family: Inter;
  }
 
  .form__container {
@@ -466,9 +434,16 @@ height: 40.7px;
 	transition: 0.3s linear;
  }
  
+ 
  .popup__close:hover {
 	opacity: .8;
- }
+	
+ } 
+
+ .popup__close:focus {
+	outline: none;
+ } 
+
  
  /* Поворот иконки, отвечающей за анимацию секции с формой */
  
