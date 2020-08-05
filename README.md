@@ -1,7 +1,6 @@
-   # Место
-https://alenazavadskaya.github.io/russian-travel/index.html 
+# Место
+https://alenazavadskaya.github.io/mesto/index.html 
 
----
 Это интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки. 
 
 ![Внешний вид проекта](/images/MAIN%20PAGE.jpg)
