@@ -1,0 +1,16 @@
+.submit__button {
+	margin: 0 auto 36.51px;
+	max-width: 358px;
+	transition: 0.3s linear;
+}
+
+.submit__button:hover { 
+	opacity: .8;
+}
+
+
+@media screen and (max-width: 740px) {
+	.submit__button {
+		width: 90%;
+	}
+}

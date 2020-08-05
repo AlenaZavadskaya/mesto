@@ -3,12 +3,9 @@ let popupOpenButton = document.querySelector('.edit-button');
 let popupCloseButton = popup.querySelector('.popup__close');
 let submitButton = popup.querySelector('.submit__button');
 let page = document.querySelector('.page');
-// Находим форму в DOM
 let formElement = document.querySelector('.form');
-// Находим поля формы в DOM
 let nameInput = document.querySelector('.form__item_name');
 let jobInput = document.querySelector('.form__item_about');
-// Выберите элементы, куда должны быть вставлены значения полей
 let placeNameInput = document.querySelector('.profile__name');
 let placeJobInput = document.querySelector('.profile__about');
 

@@ -1,0 +1,15 @@
+.header__line {
+	max-width: 882px;
+}
+
+@media screen and (max-width: 880px) {
+	.header__line {
+		max-width: 580px;
+	}
+}
+
+@media screen and (max-width: 580px) {
+	.header__line {
+		max-width: 320px;
+	}
+}

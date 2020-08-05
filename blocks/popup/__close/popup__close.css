@@ -1,0 +1,19 @@
+.popup__close {
+	width: 40.7px;
+	height: 40.7px;
+	background-color: transparent;
+	position: absolute;
+	top: -35px;
+	right: -35px;
+	display: flex;
+	cursor: pointer;
+	transition: 0.3s linear;
+}
+
+.popup__close:hover {
+	opacity: .8;
+} 
+
+.popup__close:focus {
+	outline: none;
+} 

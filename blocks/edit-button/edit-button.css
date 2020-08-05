@@ -1,0 +1,16 @@
+.edit-button {
+	width: 24px;
+	height: 24px;
+	padding: 0;
+	box-sizing: border-box;
+	background-color: transparent;
+	transition: 0.3s linear;
+}
+
+.edit-button:hover {
+	opacity: .8;
+}
+
+.edit-button:focus {
+	outline: none;
+} 

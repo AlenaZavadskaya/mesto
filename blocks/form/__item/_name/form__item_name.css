@@ -1,0 +1,11 @@
+.form__item_name {
+	margin: 0 auto 29.74px;
+	max-width: 358px;
+}
+
+@media screen and (max-width: 450px) {
+	.form__item_name {
+		max-width: 240px;
+		margin: 0 auto 15px;
+	}
+}

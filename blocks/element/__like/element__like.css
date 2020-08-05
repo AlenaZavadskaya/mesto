@@ -1,0 +1,12 @@
+.element__like {
+	height: 18.13px;
+	transition: 0.3s linear;
+}
+
+.element__like:hover {
+	opacity: .8;
+}
+
+.element__like:focus {
+	outline: none;
+}
