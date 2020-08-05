@@ -1,5 +1,5 @@
 .add-button {
-	background-image: url(/images/Add\ Button.svg);
+	background-image: url(../../images/Add\ Button.svg Button.svg);
 	background-color: black;
 	background-repeat: no-repeat;
 	border: 2px solid #FFFFFF;
@@ -21,6 +21,6 @@
 @media screen and (max-width: 580px) {
 	.add-button {
 		width: 282px;
-		background-image: url(/images/Add\ Button\ Mobile.svg);
+		background-image: url(../../images/Add\ Button\ Mobile.svg);
 	}
 }
