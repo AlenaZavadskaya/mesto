@@ -1,4 +1,4 @@
-@import url(/blocks/elements/__cards/elements__cards.css);
+@import url(./__cards/elements__cards.css);
 
 .elements {
 	max-width: 882px;

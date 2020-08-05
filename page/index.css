@@ -2,6 +2,7 @@
 @import url(../vendor/fonts/inter.css);
 @import url(../blocks/root/root.css);
 @import url(../blocks/page/page.css);
+@import url(../blocks/content/content.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/edit-button/edit-button.css);
@@ -15,4 +16,3 @@
 @import url(../blocks/form/__item/_about/form__item_about.css);
 @import url(../blocks/form/form.css);
 @import url(../blocks/submit__button/submit__button.css);
-@import url(../blocks/content/content.css);
