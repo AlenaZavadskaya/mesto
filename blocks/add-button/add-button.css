@@ -4,7 +4,6 @@
 	width: 150px;
 	height: 50px;
 	transition: 0.3s linear;
-	box-sizing: border-box;
 }
 
 .add-button:hover {

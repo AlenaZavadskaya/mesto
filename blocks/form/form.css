@@ -3,8 +3,8 @@
 @import url(./__heading/form__heading.css);
 @import url(./__input-container/form__input-container.css);
 @import url(./__item/form__item.css);
-@import url(./__item/_name/form__item_name.css);
-@import url(./__item/_about/form__item_about.css);
+@import url(././__item/_name/form__item_name.css);
+@import url(././__item/_about/form__item_about.css);
 
 
 .form {
