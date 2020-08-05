@@ -10,8 +10,8 @@
 <body class="root">
 		<div class="page"> 
 			<header class="header">
-				<img class="header__logo" src="images/logo.svg" alt="логотип.">
-				<img class="header__line" src="images/Line.svg">
+				<img class="header__logo" src="images/logo.svg" alt="логотип">
+				<img class="header__line" src="images/Line.svg" alt="линия">
 			</header> 
 			<main class="content">
 				<section class="profile">
@@ -20,11 +20,11 @@
 						<div class="profile__wrapper">
 							<div class="profile__info">
 								<h1 class="profile__name">Жак-Ив Кусто</h1>
-								<input class="edit-button" type="image" src="images/Edit Button.svg">
+								<input class="edit-button" type="image" src="images/Edit_Button.svg" alt="редактировать">
 							</div>
 							<p class="profile__about">Исследователь океана</p>
 						</div>
-						<input class="add-button" type="image" src="images/Add Button.svg">
+						<input class="add-button" type="image" src="images/Add_Button.svg" alt="добавить">
 					</div>
 				</section>
 				<section class="elements">
@@ -33,42 +33,42 @@
 							<img class="element__image" src="images/Greenland__boat.jpg" alt="яхта в море">
 							<div class="element__name">
 								<h2 class="element__title">Гренландия</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 						<li class="element">
 							<img class="element__image" src="images/Vancouver_Canada.jpg" alt="кит в океане">
 							<div class="element__name">
 								<h2 class="element__title">Тихий океан</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 						<li class="element">
-							<img class="element__image" src="images/Milford _Sound_New Zealand.jpg" alt="горы и море">
+							<img class="element__image" src="images/Milford_Sound_New_Zealand.jpg" alt="горы и море">
 							<div class="element__name">
 								<h2 class="element__title">Новая Зеландия</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 						<li class="element">
 							<img class="element__image" src="images/Bettmerhorn_Bettmeralp_Switzerland.jpg" alt="дорожная полоса в горах">
 							<div class="element__name">
 								<h2 class="element__title">Швейцария</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 						<li class="element">
-							<img class="element__image" src="images/Lago di Braies.jpg" alt="горное озеро и лодки">
+							<img class="element__image" src="images/Lago_di_Braies.jpg" alt="горное озеро и лодки">
 							<div class="element__name">
 								<h2 class="element__title">Италия</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 						<li class="element">
-							<img class="element__image" src="images/Lago di Braies_taly.jpg" alt="вид на горное озеро из окна">
+							<img class="element__image" src="images/Lago_di_Braies_taly.jpg" alt="вид на горное озеро из окна">
 							<div class="element__name">
 								<h2 class="element__title">Озеро Брайес, Италия</h2>
-								<input class="element__like" src="images/Group.svg" type="image">
+								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
 							</div>
 						</li>
 					</ul>
@@ -77,24 +77,24 @@
 			<footer class="footer">
 				<p class="footer__copyright">© 2020 Mesto Russia</p>
 			</footer>
+			<section class="popup">
+				<div class="popup__container">
+					<input class="popup__close" src="images/Close_Icon.svg" type="image" alt="закрыть">
+					<form class="form">
+						<div class="form__container">
+							<h2 class="form__heading">Редактировать профиль</h2>
+							<fieldset class="form__input-container">
+								<input class="form__item form__item_name" type="text" value="Жак-Ив Кусто">
+								<input class="form__item form__item_about" type="text" value="Исследователь океана">
+							</fieldset>
+							<div class="form__handlers">
+								<input class="submit__button" src="images/Add_Button.svg" type="image" alt="сохранить">
+							</div>
+						</div>
+					</form>
+				</div>
+			</section>
 		</div>
-	<section class="popup">
-      <div class="popup__container">
-			<input class="popup__close" src="images/Close Icon.svg" type="image">
-			<form class="form">
-				<div class="form__container">
-					<h2 class="form__heading">Редактировать профиль</h2>
-					<fieldset class="form__input-container">
-						<input class="form__item form__item_name" type="text" value="Жак-Ив Кусто">
-						<input class="form__item form__item_about" type="text" value="Исследователь океана">
-					</fieldset>
-					<div class="form__handlers">
-						<input class="submit__button" src="images/Submit Button.svg" type="image">
-					</div>
-				</form>
-			</div>
-		</section>
-</div>
 	<script src="blocks/scripts/script.js"></script>
 </body>
 </html> 

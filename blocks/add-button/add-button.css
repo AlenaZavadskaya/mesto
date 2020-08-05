@@ -4,6 +4,7 @@
 	width: 150px;
 	height: 50px;
 	transition: 0.3s linear;
+	background-color: black;
 }
 
 .add-button:hover {
@@ -17,5 +18,6 @@
 @media screen and (max-width: 580px) {
 	.add-button {
 		width: 282px;
+		height: 50px;
 	}
 }

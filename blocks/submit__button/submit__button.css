@@ -2,6 +2,9 @@
 	margin: 0 auto 36.51px;
 	max-width: 358px;
 	transition: 0.3s linear;
+	width: 358px;
+	height: 50px;
+	background-color: black;
 }
 
 .submit__button:hover { 
