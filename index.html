@@ -8,93 +8,91 @@
 <link rel="stylesheet" href="page/index.css"> 
 </head> 
 <body class="root">
-		<div class="page"> 
-			<header class="header">
-				<img class="header__logo" src="images/logo.svg" alt="логотип">
-				<img class="header__line" src="images/Line.svg" alt="линия">
-			</header> 
-			<main class="content">
-				<section class="profile">
-					<img class="profile__avatar" src="images/Avatar.jpg" alt="Жак-Ив Кусто.">
-					<div class="profile__container">
-						<div class="profile__wrapper">
-							<div class="profile__info">
-								<h1 class="profile__name">Жак-Ив Кусто</h1>
-								<input class="edit-button" type="image" src="images/Edit_Button.svg" alt="редактировать">
-							</div>
-							<p class="profile__about">Исследователь океана</p>
-						</div>
-						<input class="add-button" type="image" src="images/Add_Button.svg" alt="добавить">
-					</div>
-				</section>
-				<section class="elements">
-					<ul class="elements__cards">
-						<li class="element">
-							<img class="element__image" src="images/Greenland__boat.jpg" alt="яхта в море">
-							<div class="element__name">
-								<h2 class="element__title">Гренландия</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-						<li class="element">
-							<img class="element__image" src="images/Vancouver_Canada.jpg" alt="кит в океане">
-							<div class="element__name">
-								<h2 class="element__title">Тихий океан</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-						<li class="element">
-							<img class="element__image" src="images/Milford_Sound_New_Zealand.jpg" alt="горы и море">
-							<div class="element__name">
-								<h2 class="element__title">Новая Зеландия</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-						<li class="element">
-							<img class="element__image" src="images/Bettmerhorn_Bettmeralp_Switzerland.jpg" alt="дорожная полоса в горах">
-							<div class="element__name">
-								<h2 class="element__title">Швейцария</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-						<li class="element">
-							<img class="element__image" src="images/Lago_di_Braies.jpg" alt="горное озеро и лодки">
-							<div class="element__name">
-								<h2 class="element__title">Италия</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-						<li class="element">
-							<img class="element__image" src="images/Lago_di_Braies_taly.jpg" alt="вид на горное озеро из окна">
-							<div class="element__name">
-								<h2 class="element__title">Озеро Брайес, Италия</h2>
-								<input class="element__like" src="images/Group.svg" type="image" alt="лайк">
-							</div>
-						</li>
-					</ul>
-				</section>
-			</main>
-			<footer class="footer">
-				<p class="footer__copyright">© 2020 Mesto Russia</p>
-			</footer>
-			<section class="popup">
-				<div class="popup__container">
-					<input class="popup__close" src="images/Close_Icon.svg" type="image" alt="закрыть">
-					<form class="form">
-						<div class="form__container">
-							<h2 class="form__heading">Редактировать профиль</h2>
-							<fieldset class="form__input-container">
-								<input class="form__item form__item_name" type="text" value="Жак-Ив Кусто">
-								<input class="form__item form__item_about" type="text" value="Исследователь океана">
-							</fieldset>
-							<div class="form__handlers">
-								<input class="submit__button" src="images/Submit_Button.svg" type="image" alt="сохранить">
-							</div>
-						</div>
-					</form>
-				</div>
-			</section>
-		</div>
-	<script src="blocks/scripts/script.js"></script>
+  <header class="header">
+    <img class="header__logo" src="images/logo.svg" alt="логотип">
+    <div class="header__line"></div>
+  </header> 
+  <main class="content">
+    <section class="profile">
+     <img class="profile__avatar" src="images/avatar.jpg" alt="Жак-Ив Кусто.">
+     <div class="profile__container">
+       <div class="profile__wrapper">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="edit-button" type="button"></button>
+        </div>
+          <p class="profile__about">Исследователь океана</p>
+        </div>
+        <button class="add-button" type="button"></button>
+        </div>
+    </section>
+    <section class="elements">
+      <ul class="elements__cards">
+        <li class="element">
+          <img class="element__image" src="images/greenland__boat.jpg" alt="яхта в море">
+          <div class="element__name">
+            <h2 class="element__title">Гренландия</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img class="element__image" src="images/vancouver_canada.jpg" alt="кит в океане">
+          <div class="element__name">
+            <h2 class="element__title">Тихий океан</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img class="element__image" src="images/milford_sound_new_zealand.jpg" alt="горы и море">
+          <div class="element__name">
+            <h2 class="element__title">Новая Зеландия</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img class="element__image" src="images/bettmerhorn_bettmeralp_switzerland.jpg" alt="дорожная полоса в горах">
+          <div class="element__name">
+            <h2 class="element__title">Швейцария</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img class="element__image" src="images/lago_di_braies.jpg" alt="горное озеро и лодки">
+          <div class="element__name">
+            <h2 class="element__title">Италия</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+        <li class="element">
+          <img class="element__image" src="images/lago_di_braies_taly.jpg" alt="вид на горное озеро из окна">
+          <div class="element__name">
+            <h2 class="element__title">Озеро Брайес, Италия</h2>
+            <button class="element__like" type="button"></button>
+          </div>
+        </li>
+	   </ul>
+	 </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+  <section class="popup">
+    <div class="popup__container">
+      <input class="popup__close" src="images/close_Icon.svg" type="image" alt="закрыть">
+        <form class="form" action="URL">
+          <div class="form__container">
+            <h2 class="form__heading">Редактировать профиль</h2>
+              <fieldset class="form__input-container">
+                <input class="form__item form__item_name" type="text" value="Жак-Ив Кусто" name="full_name">
+                <input class="form__item form__item_about" type="text" value="Исследователь океана" name="about">
+              </fieldset>
+              <div class="form__handlers">
+                <button class="submit__button" type="submit">Сохранить</button>
+              </div>
+          </div>
+        </form>
+    </div>
+  </section>
+  <script src="scripts/script.js"></script>
 </body>
 </html> 

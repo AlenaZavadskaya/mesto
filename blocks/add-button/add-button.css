@@ -1,4 +1,6 @@
 .add-button {
+	background-image: url(../../images/add_button.svg);
+	background-position: center;
 	border: 2px solid #FFFFFF;
 	border-radius: 2px;
 	width: 150px;
@@ -9,6 +11,7 @@
 
 .add-button:hover {
 	opacity: .8;
+	cursor: pointer;
 }
 
 .add-button:focus {
@@ -17,6 +20,7 @@
 
 @media screen and (max-width: 580px) {
 	.add-button {
+		background-image: url(../../images/add_button_mobile.svg);
 		width: 282px;
 	}
 }
