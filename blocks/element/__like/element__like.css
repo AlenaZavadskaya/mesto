@@ -8,8 +8,7 @@
 }
 
 .element__like:hover {
-	opacity: .8;
-	box-shadow: 0 0 2px rgba(0,0,0,0.5);
+	opacity: .6;
 	cursor: pointer;
 }
 
