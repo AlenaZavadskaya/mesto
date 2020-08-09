@@ -1,8 +1,9 @@
 .element__like {
 	background-image: url(../../../images/like.svg);
 	background-color: white;
-	height: 18.13px;
+	height: 20.76px;
 	width: 20.76px;
+	background-repeat: no-repeat;
 	transition: 0.3s linear;
 	border: none;
 	padding: 0;
