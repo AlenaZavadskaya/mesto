@@ -1,9 +1,8 @@
 .element__like {
-	background-image: url(../../../images/like.svg);
+	background: url(../../../images/like.svg) center no-repeat;
 	background-color: white;
 	height: 20.76px;
 	width: 20.76px;
-	background-repeat: no-repeat;
 	transition: 0.3s linear;
 	border: none;
 	padding: 0;
@@ -12,6 +11,7 @@
 .element__like:hover {
 	opacity: .6;
 	cursor: pointer;
+	transform: scale(1.1);
 }
 
 .element__like:focus {

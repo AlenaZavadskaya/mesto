@@ -13,21 +13,19 @@
 	height: 50px;
 	border-radius: 2px;
 	border: none;
+	margin: 0 auto 30px;
+	padding: 0;
 }
 
 .submit__button:hover { 
 	opacity: .8;
+	cursor: pointer;
 }
 
 
-@media screen and (max-width: 740px) {
-	.submit__button {
-		width: 90%;
-	}
-}
-
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 500px) {
 	.submit__button {
 		font-size: 16px;
+		width: 200px;
 	}
 }

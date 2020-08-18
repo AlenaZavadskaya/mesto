@@ -5,11 +5,14 @@
 @import url(./__item/form__item.css);
 @import url(././__item/_name/form__item_name.css);
 @import url(././__item/_about/form__item_about.css);
+@import url(./__title/form__title.css);
+@import url(././__item/_title/form__item_title.css);
+@import url(././__item/_link/form__item_link.css);
 
 
 .form {
 	min-height: 330px;
-	max-width: 430px;
+	width: 430px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -18,9 +21,9 @@
 }
 
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
 	.form {
-		max-width: 240px;
-		min-height: 270px;
+		width: 240px;
+		min-height: 258px;
 	}
 }
