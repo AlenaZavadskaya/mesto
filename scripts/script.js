@@ -14,10 +14,10 @@ const placeNameInput = document.querySelector('.profile__name');
 const placeJobInput = document.querySelector('.profile__about');
 const popupImage = document.querySelector('#popupImage');
 const elementsContainer = document.querySelector('.elements__container');
-const templateImage = document.querySelector('.element__image');
-const templateTitle = document.querySelector('.element__title');
 const elementForm = document.querySelector('#form-card');
 const popupImageCloseButton = popupImage.querySelector('.popup-image__close');
+const popupImagePicture = popupImage.querySelector('.popup-image__img');
+const popupImageTitle = popupImage.querySelector('.popup-image__title');
 
 
 // открыть попап
@@ -32,7 +32,7 @@ function closePopup(popupElement) {
 // закрыть попап - х
 function closeOverlay(popupElement) {
 	if (event.target === event.currentTarget) {
-		popupElement.classList.remove('popup_opened');
+		closePopup(popupElement);
 	}
 }
 
@@ -83,20 +83,25 @@ const initialCards = [
 const createCard = (element) => {
 	//  клонируем содержимое тега template и наполняем содержимым 
 	const cardElement = document.querySelector('#element-template').content.cloneNode(true);
-	cardElement.querySelector('.element__image').src = element.link;
-	cardElement.querySelector('.element__title').textContent = element.name;
-	cardElement.querySelector('.element__image').setAttribute('alt', element.name);
+	const cardImage = cardElement.querySelector('.element__image');
+	const cardTitle = cardElement.querySelector('.element__title');
+	const cardRemove = cardElement.querySelector('.element__delete');
+	const cardLike = cardElement.querySelector('.element__like')
 
-	cardElement.querySelector('.element__image').addEventListener('click', fillPopupImage);
-	cardElement.querySelector('.element__delete').addEventListener('click', removeCard);
-	cardElement.querySelector('.element__like').addEventListener('click', likeCard);
+	cardImage.src = element.link;
+	cardTitle.textContent = element.name;
+	cardImage.setAttribute('alt', element.name);
+
+	cardImage.addEventListener('click', fillPopupImage);
+	cardRemove.addEventListener('click', removeCard);
+	cardLike.addEventListener('click', likeCard);
 
 	return cardElement;
 };
 
 
 function addCard(element) {
-	document.querySelector('.elements__container').prepend(element);
+	elementsContainer.prepend(element);
 }
 
 // добавляем карточки на страницу
@@ -110,22 +115,22 @@ formPlaceElement.addEventListener('submit', function () {
 
 // заполняем текущими данными поля попапа с картинкой при его открытии
 function fillPopupImage() {
-	popupImage.querySelector('.popup-image__img').src = event.target.src;
-	popupImage.querySelector('.popup-image__title').textContent = event.target.alt;
-	popupImage.querySelector('.popup-image__img').setAttribute('alt', event.target.alt);
+	popupImagePicture.src = event.target.src;
+	popupImageTitle.textContent = event.target.alt;
+	popupImagePicture.setAttribute('alt', event.target.alt);
 	openPopup(popupImage);
-};
+}
 
 //  удаляем карточку при нажатии на значек
 function removeCard(evt) {
 	const card = evt.target.closest('.element') // сlosest находит весь блок карточки в разметке
 	card.remove();
-};
+}
 
 // меняем стиль для лайка
 function likeCard(evt) {
 	evt.target.classList.toggle('element__like_active');
-};
+}
 
 // Прикрепляем обработчик к форме редактирования профиля: 
 profileForm.addEventListener('submit', handleFormSubmit);
