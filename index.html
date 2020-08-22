@@ -33,7 +33,7 @@
   <footer class="footer">
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
-  <section class="popup">
+  <section class="popup" id="popupProfile">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
         <form class="form" action="URL">
@@ -61,17 +61,17 @@
 					<input class="form__item form__item_link" type="url" value="" name="link" placeholder="Ссылка на картинку">
 				 </fieldset>
 				 <div class="form__handlers">
-					<button class="submit__button" id="createCard" type="submit">Создать</button>
+					<button class="submit__button" id="addCard" type="submit">Создать</button>
 				 </div>
 			</div>
 		 </form>
 	</div>
  </section>
- <section class="popup-image">
+ <section class="popup popup-image" id="popupImage">
 	<div class="popup-image__container">
-	  <button class="popup-image__close" type="button"></button>
+	  <button class="popup__close popup-image__close" type="button"></button>
 	  <figure>
-	    <img class="popup-image__img">
+	    <img class="popup-image__img" src="" alt="">
 	    <figcaption class="popup-image__title"></figcaption>
 	  </figure>
 	</div>
