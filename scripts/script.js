@@ -1,3 +1,4 @@
+const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('#popupProfile');
 const popupPlace = document.querySelector('#popupPlace');
 const popupProfileOpenButton = document.querySelector('.edit-button');
@@ -23,18 +24,30 @@ const popupImageTitle = popupImage.querySelector('.popup-image__title');
 // открыть попап
 function openPopup(popupElement) {
 	popupElement.classList.add('popup_opened');
+	document.addEventListener('keydown', evt => keyHandler(evt, popupElement));
 }
 
 // закрыть попап - х
 function closePopup(popupElement) {
 	popupElement.classList.remove('popup_opened');
+	document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
 }
-// закрыть попап - х
+
+// закрыть попап - Overlay
 function closeOverlay(popupElement) {
 	if (event.target === event.currentTarget) {
 		closePopup(popupElement);
+		document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
 	}
 }
+
+// закрыть попап - Esc
+function keyHandler(evt, popupElement) {
+	if(evt.key === 'Escape'|| evt.key === 'Esc'|| evt.keyCode === 27) {
+		closePopup(popupElement);
+	}
+}
+
 
 // заполнить текущими данными поля попапа редактирования профиля при его открытии
 popupProfileOpenButton.addEventListener('click', function () {
@@ -150,3 +163,130 @@ popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
 
 // первоначальное отображение карточек на странице
 initialCards.forEach(function (item) { addCard(createCard(item)); });
+/*
+//валидация из тренажера
+
+const form = document.forms.add;
+const submitButton = document.querySelector('.submit__button');
+
+// состояние кнопки submit меняется в зависимости от того, заполнены ли поля формы
+function setSubmitButtonState(isFormValid) {
+	if (isFormValid) {
+		//Если с формой всё в порядке, условие разблокирует:
+		submitButton.removeAttribute('disabled');
+		submitButton.classList.remove('submit__button_disabled');
+	} else {
+		//Если хотя бы одно из полей пустое, условие её заблокирует:
+		submitButton.setAttribute('disabled', true);
+		submitButton.classList.add('submit__button_disabled');
+	}
+};
+
+
+// обработчик изменения формы
+form.addEventListener('input', function(setSubmitButtonState) {
+	const isValid = titleInput.value.length > 0 && pictureInput.value.length > 0
+	setSubmitButtonState(isValid);
+});
+
+// валидация форм
+
+/*
+<!-- index.html -->
+
+<input id="input">
+<div id="error" style="display: none"></div>
+
+	script.js 
+
+const input = document.querySelector('#input');
+const error = document.querySelector('#error'); // Блок с ошибкой изначально скрыт
+
+input.addEventListener('keydown', function (evt) {
+  // Проверяем, была ли введена цифра
+    if (Number.isNaN(Number(evt.key))) {
+    // Если пользователь ввёл не цифру, показываем блок с ошибкой
+    error.style.display = 'block';
+    };
+});
+*/
+
+/*
+const input = document.querySelector('#input');
+const error = document.querySelector('#error'); // Блок с ошибкой изначально скрыт
+
+input.addEventListener('keydown', function (evt) {
+  // Проверяем, была ли введена цифра
+    if (!(evt.keyCode <= 57 && evt.keyCode >= 48)) {
+    // Если пользователь ввёл не цифру, показываем блок с ошибкой
+    error.style.display = 'block';
+    };
+});
+*/
+
+/*
+// Функция, которая добавляет класс с ошибкой
+const showInputError = (element) => {
+  element.classList.add('form__input_type_error');
+  // Показываем сообщение об ошибке
+  formError.classList.add('form__input-error_active');
+};
+
+// Функция, которая удаляет класс с ошибкой
+const hideInputError = (element) => {
+  element.classList.remove('form__input_type_error');
+  // Скрываем сообщение об ошибке
+  formError.classList.remove('form__input-error_active');
+};
+
+// Функция, которая проверяет валидность поля
+const isValid = () => {
+	if (!formInput.validity.valid) {
+	  // Если поле не проходит валидацию, покажем ошибку
+	  showInputError(formInput);
+	} else {
+	  // Если проходит, скроем
+	  hideInputError(formInput);
+	}
+ };
+  
+ formElement.addEventListener('submit', function (evt) {
+	// Отменим стандартное поведение по сабмиту
+	evt.preventDefault();
+ });
+ 
+ // Вызовем функцию isValid на каждый ввод символа
+ formInput.addEventListener('input', isValid);
+ */
+
+/*
+const formElement = document.querySelector('.form');
+const formInput = formElement.querySelector('.form__input');
+const formError = formElement.querySelector(`#${formInput.id}-error`);
+
+// Передадим текст ошибки вторым параметром
+const showInputError = (element, errorMessage) => {
+  element.classList.add('form__input_type_error');
+  // Заменим содержимое span с ошибкой на переданный параметр
+  formError.textContent = errorMessage;
+  formError.classList.add('form__input-error_active');
+};
+
+const hideInputError = (element) => {
+  element.classList.remove('form__input_type_error');
+  formError.classList.remove('form__input-error_active');
+  // Очистим ошибку
+  formError.textContent = '';
+};
+
+const isValid = () => {
+  if (!formInput.validity.valid) {
+    // Передадим сообщение об ошибке вторым аргументом
+    showInputError(formInput, formInput.validationMessage);
+  } else {
+    hideInputError(formInput);
+  }
+};
+ 
+// Остальной код такой же
+*/
