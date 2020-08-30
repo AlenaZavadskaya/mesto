@@ -36,16 +36,18 @@
   <section class="popup" id="popupProfile">
     <div class="popup__container">
       <button class="popup__close" type="button"></button>
-        <form class="form" action="URL">
+        <form class="form" action="URL" novalidate>
           <div class="form__container">
             <h2 class="form__heading">Редактировать профиль</h2>
-              <fieldset class="form__input-container">
-                <input class="form__item form__item_name" type="text" value="Жак-Ив Кусто" name="full_name" minlength="2" maxlength="40" required>
-                <input class="form__item form__item_about" type="text" value="Исследователь океана" name="about" minlength="2" maxlength="200" required>
-              </fieldset>
+              <fieldset class="form__input-container form__set">
+                <label class="form__field"><input id="name-input" class="form__item form__item_name" type="text" value="Жак-Ив Кусто" name="full_name" placeholder="Имя" minlength="2" maxlength="40" required>
+					 <span id="name-input-error" class="form__item-error"></span></label>
+					 <label class="form__field form__field-info"><input id="about-input" class="form__item form__item_about" type="text" value="Исследователь океана" name="about" placeholder="О себе" minlength="2" maxlength="200" required>
+					 <span id="about-input-error" class="form__item-error"></span></label>
               <div class="form__handlers">
                 <button class="submit__button" type="submit">Сохранить</button>
-              </div>
+				  </div>
+				</fieldset>
           </div>
         </form>
     </div>
@@ -53,16 +55,18 @@
   <section class="popup" id="popupPlace">
 	<div class="popup__container">
 	  <button class="popup__close" type="button" id="popupPlaceClose"></button>
-		 <form class="form" action="URL" id="form-card">
+		 <form class="form" action="URL" id="form-card" novalidate>
 			<div class="form__container">
 			  <h2 class="form__title">Новое место</h2>
 				 <fieldset class="form__input-container">
-					<input class="form__item form__item_title" type="text" value="" name="title" placeholder="Название" minlength="1" maxlength="30" required>
-					<input class="form__item form__item_link" type="url" value="" name="link" placeholder="Ссылка на картинку" required>
-				 </fieldset>
+					<label class="form__field"><input id="title-input" class="form__item form__item_title" type="text" value="" name="title" placeholder="Название" minlength="1" maxlength="30" required>
+					<span id="title-input-error" class="form__item-error"></span></label>
+					<label class="form__field form__field-info"><input id="url-input" class="form__item form__item_link" type="url" value="" name="link" placeholder="Ссылка на картинку" required>
+					<span id="url-input-error" class="form__item-error"></span></label>
 				 <div class="form__handlers">
-					<button class="submit__button submit__button_disabled" id="addCard" type="submit">Создать</button>
+					<button class="submit__button" id="addCard" type="submit">Создать</button>
 				 </div>
+				</fieldset>
 			</div>
 		 </form>
 	</div>
