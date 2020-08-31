@@ -29,6 +29,7 @@ function openPopup(popupElement) {
 
 // закрыть попап - х
 function closePopup(popupElement) {
+	elementForm.reset();
 	popupElement.classList.remove('popup_opened');
 	document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
 }
@@ -36,6 +37,7 @@ function closePopup(popupElement) {
 // закрыть попап - Overlay
 function closeOverlay(popupElement) {
 	if (event.target === event.currentTarget) {
+		elementForm.reset();
 		closePopup(popupElement);
 		document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
 	}
@@ -43,11 +45,11 @@ function closeOverlay(popupElement) {
 
 // закрыть попап - Esc
 function keyHandler(evt, popupElement) {
-	if(evt.key === 'Escape'|| evt.key === 'Esc'|| evt.keyCode === 27) {
+	if (evt.key === 'Escape' || evt.key === 'Esc' || evt.keyCode === 27) {
+		elementForm.reset();
 		closePopup(popupElement);
 	}
 }
-
 
 // заполнить текущими данными поля попапа редактирования профиля при его открытии
 popupProfileOpenButton.addEventListener('click', function () {
@@ -55,6 +57,7 @@ popupProfileOpenButton.addEventListener('click', function () {
 	jobInput.value = placeJobInput.textContent;
 	openPopup(popupProfile)
 });
+
 
 // Обработчик «отправки» формы редактирования профиля
 function handleFormSubmit(evt) {
@@ -122,9 +125,7 @@ formPlaceElement.addEventListener('submit', function () {
 	event.preventDefault();
 	const addedCard = { name: titleInput.value, link: pictureInput.value };
 	addCard(createCard(addedCard));
-	//elementForm.reset();
-	//titleInput.textContent = '';
-	//pictureInput.textContent = '';
+	elementForm.reset();
 	closePopup(popupPlace);
 });
 
@@ -165,235 +166,3 @@ popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
 
 // первоначальное отображение карточек на странице
 initialCards.forEach(function (item) { addCard(createCard(item)); });
-
-
-
-//валидация из тренажера
-
-const formElement = document.querySelector('.form');
-const formInput = formElement.querySelector('.form__item');
-// Выбираем элемент ошибки на основе id 
-const formError = formElement.querySelector(`#${formInput.id}-error`);
-
-
-// Функция, которая добавляет класс с ошибкой
-// Передадим текст ошибки вторым параметром
-const showInputError = (formElement, inputElement, errorMessage) => {
-	// Находим элемент ошибки внутри самой функции
-	const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-
-  inputElement.classList.add('form__item_type_error');
-// Заменим содержимое span с ошибкой на переданный параметр
-errorElement.textContent = errorMessage;
-// Показываем сообщение об ошибке
-errorElement.classList.add('form__item-error_active');
-};
-
-
- // Функция, которая удаляет класс с ошибкой
-const hideInputError = (formElement, inputElement) => {
-	// Находим элемент ошибки
-	const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-	inputElement.classList.remove('form__item-error');
-  // Скрываем сообщение об ошибке
-  errorElement.classList.remove('form__item-error_active');
-	// Очистим ошибку
-	errorElement.textContent = '';
-};
-
-
- // Функция, которая проверяет валидность поля
-const isValid = (formElement, inputElement) => {
-	if (!formInput.validity.valid) {
-	  // Если поле не проходит валидацию, покажем ошибку
-		// showInputError получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-		showInputError(formElement, inputElement, inputElement.validationMessage);
-	} else {
-	  // Если проходит, скроем
-		// hideInputError теперь получает параметром форму, в которой
-    // находится проверяемое поле, и само это поле
-	  hideInputError(formElement, inputElement);
-	}
-};
-
-// Функция принимает массив полей
-const hasInvalidInput = (inputList) => {
-	// проходим по этому массиву методом some
-	return inputList.some((inputElement) => {
-			// Если поле не валидно, колбэк вернёт true
-	  // Обход массива прекратится и вся фунцкция
-	  // hasInvalidInput вернёт true
- 
-	  return !inputElement.validity.valid;
-	})
-};
-
-
-// Функция принимает массив полей ввода
-// и элемент кнопки, состояние которой нужно менять
-const toggleButtonState = (inputList, buttonElement) => {
-	// Если есть хотя бы один невалидный инпут
-	if (hasInvalidInput(inputList)) {
-	  // сделай кнопку неактивной
-		
-	 
-	  buttonElement.classList.add('submit__button_disabled');
-	  buttonElement.setAttribute('disabled', true);
-	} else {
-			// иначе сделай кнопку активной
-			buttonElement.removeAttribute('disabled');
-	  buttonElement.classList.remove('submit__button_disabled');
-	}
- };
-
-
-const setEventListeners = (formElement) => {
-	// Найдём все поля формы и сделаем из них массив
- const inputList = Array.from(formElement.querySelectorAll(`.form__item`));
-	// Найдём в текущей форме кнопку отправки
-	const buttonElement = formElement.querySelector('.submit__button');
-	// Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
-	toggleButtonState(inputList, buttonElement);
-
-	// Обойдём все элементы полученной коллекции
- inputList.forEach((inputElement) => {
-	 inputElement.addEventListener('input', () => {
-		// Внутри колбэка вызовем isValid,
-		 // передав ей форму и проверяемый элемент
-	  isValid(formElement, inputElement);
-
-			  // Вызовем toggleButtonState и передадим ей массив полей и кнопку
-	  toggleButtonState(inputList, buttonElement);
-	});
- });
-};
-
-
-const enableValidation = () => {
-	// Найдём все формы с указанным классом в DOM,
-	// сделаем из них массив методом Array.from
-	const formList = Array.from(document.querySelectorAll('.form'));
- 
-	// Переберём полученную коллекцию
-	formList.forEach((formElement) => {
-	  formElement.addEventListener('submit', (evt) => {
-		 // У каждой формы отменим стандартное поведение
-		 evt.preventDefault();
-	  });
- 
-	  // Для каждой формы вызовем функцию setEventListeners,
-	  // передав ей элемент формы
-	  const fieldsetList = Array.from(formElement.querySelectorAll('.form__input-container'));
-  fieldsetList.forEach((fieldSet) => {
-    setEventListeners(fieldSet);
-  });
- });
-};
- 
- // Вызовем функцию
- enableValidation();
-
-
-// включение валидации вызовом enableValidation
-// все настройки передаются при вызове
-
-enableValidation({
-	formSelector: '.form',
-	fieldSetSelector: '.form__input-container',
-	inputSelector: '.form__item',
-	submitButtonSelector: '.submit__button',
-	inactiveButtonClass: 'submit__button_disabled',
-	inputErrorClass: 'form__item_type_error',
-	errorClass: 'form__item-error'
-});
-
-/*
-const form = document.forms.add;
-const submitButton = document.querySelector('.submit__button');
-
-// состояние кнопки submit меняется в зависимости от того, заполнены ли поля формы
-function setSubmitButtonState(isFormValid) {
-	if (isFormValid) {
-		//Если с формой всё в порядке, условие разблокирует:
-		submitButton.removeAttribute('disabled');
-		submitButton.classList.remove('submit__button_disabled');
-	} else {
-		//Если хотя бы одно из полей пустое, условие её заблокирует:
-		submitButton.setAttribute('disabled', true);
-		submitButton.classList.add('submit__button_disabled');
-	}
-};
-
-
-// обработчик изменения формы
-form.addEventListener('input', function(setSubmitButtonState) {
-	const isValid = titleInput.value.length > 0 && pictureInput.value.length > 0
-	setSubmitButtonState(isValid);
-});
-
-// валидация форм
-
-/*
-<!-- index.html -->
-
-<input id="input">
-<div id="error" style="display: none"></div>
-
-	script.js 
-
-const input = document.querySelector('#input');
-const error = document.querySelector('#error'); // Блок с ошибкой изначально скрыт
-
-input.addEventListener('keydown', function (evt) {
-  // Проверяем, была ли введена цифра
-    if (Number.isNaN(Number(evt.key))) {
-    // Если пользователь ввёл не цифру, показываем блок с ошибкой
-    error.style.display = 'block';
-    };
-});
-*/
-
-/*
-const input = document.querySelector('#input');
-const error = document.querySelector('#error'); // Блок с ошибкой изначально скрыт
-
-input.addEventListener('keydown', function (evt) {
-  // Проверяем, была ли введена цифра
-    if (!(evt.keyCode <= 57 && evt.keyCode >= 48)) {
-    // Если пользователь ввёл не цифру, показываем блок с ошибкой
-    error.style.display = 'block';
-    };
-});
-*/
-
-/*
-
-
- 
- // Вызовем функцию isValid на каждый ввод символа
- formInput.addEventListener('input', isValid);
- */
-
-/*
-const formElement = document.querySelector('.form');
-const formInput = formElement.querySelector('.form__input');
-const formError = formElement.querySelector(`#${formInput.id}-error`);
-
-// Передадим текст ошибки вторым параметром
-const showInputError = (element, errorMessage) => {
-  element.classList.add('form__input_type_error');
-  // Заменим содержимое span с ошибкой на переданный параметр
-  formError.textContent = errorMessage;
-  formError.classList.add('form__input-error_active');
-};
-
-const hideInputError = (element) => {
-  element.classList.remove('form__input_type_error');
-  formError.classList.remove('form__input-error_active');
-  // Очистим ошибку
-  formError.textContent = '';
-};
-
-
-*/

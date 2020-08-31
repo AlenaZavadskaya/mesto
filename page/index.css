@@ -15,3 +15,8 @@
 @import url(../blocks/submit__button/submit__button.css);
 @import url(../blocks/popup-image/popup-image.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
+@import url(../blocks/form/__item-error/form__item-error.css);
+@import url(../blocks/form/__item/_error/form__item_error.css);
+@import url(../blocks/form/__item-error/_active/form__item-error_active.css);
+@import url(../blocks/submit__button/_disabled/submit__button_disabled.css);
+
