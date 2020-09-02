@@ -21,47 +21,45 @@ const popupImagePicture = popupImage.querySelector('.popup-image__img');
 const popupImageTitle = popupImage.querySelector('.popup-image__title');
 
 
-// открыть попап 
-function openPopup(popupElement) { 
-	elementForm.reset(); 
-	popupElement.classList.add('popup_opened'); 
-	document.addEventListener('keydown', evt => keyHandler(evt, popupElement)); 
-} 
-
-
-// закрыть попап - х
-function closePopup(popupElement) {
-	popupElement.classList.remove('popup_opened');
-	document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
+// открыть попап  
+function openPopup(popupElement) {
+	elementForm.reset();
+	popupElement.classList.add('popup_opened');
+	document.addEventListener('keydown', escapeClose);
 }
 
-// закрыть попап - Overlay
+// закрыть попап - х 
+function closePopup(popupElement) {
+	popupElement.classList.remove('popup_opened');
+	document.removeEventListener('keydown', escapeClose);
+}
+
+// закрыть попап - Overlay 
 function closeOverlay(event, popupElement) {
 	if (event.target === event.currentTarget) {
 		closePopup(popupElement);
-		document.removeEventListener('keydown', evt => keyHandler(evt, popupElement));
 	}
 }
 
-// закрыть попап - Esc
-function keyHandler(evt, popupElement) {
-	if (evt.key === 'Escape' || evt.key === 'Esc' || evt.keyCode === 27) {
-		closePopup(popupElement);
+// закрыть попап - Escape
+function escapeClose(evt) {
+	if (evt.key === 'Escape') {
+		const openedPopup = document.querySelector('.popup_opened');
+		openedPopup.classList.remove('popup_opened');
 	}
 }
 
-// заполнить текущими данными поля попапа редактирования профиля при его открытии
+// заполнить текущими данными поля попапа редактирования профиля при его открытии 
 popupProfileOpenButton.addEventListener('click', function () {
 	nameInput.value = placeNameInput.textContent;
 	jobInput.value = placeJobInput.textContent;
 	openPopup(popupProfile);
 });
 
-
-// Обработчик «отправки» формы редактирования профиля
+// Обработчик «отправки» формы редактирования профиля 
 function handleFormSubmit(evt) {
-	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы. 
-	// Вставляем новые значения с помощью textContent 
+	evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.  
+	// Вставляем новые значения с помощью textContent  
 	placeNameInput.textContent = nameInput.value;
 	placeJobInput.textContent = jobInput.value;
 	closePopup(popupProfile);
@@ -94,9 +92,9 @@ const initialCards = [
 	}
 ];
 
-// создаем карточку и добавляем на каждую слушатели событий
+// создаем карточку и добавляем на каждую слушатели событий 
 const createCard = (element) => {
-	//  клонируем содержимое тега template и наполняем содержимым 
+	//  клонируем содержимое тега template и наполняем содержимым  
 	const cardElement = document.querySelector('#element-template').content.cloneNode(true);
 	const cardImage = cardElement.querySelector('.element__image');
 	const cardTitle = cardElement.querySelector('.element__title');
@@ -114,12 +112,11 @@ const createCard = (element) => {
 	return cardElement;
 };
 
-
 function addCard(element) {
 	elementsContainer.prepend(element);
 }
 
-// добавляем карточки на страницу
+// добавляем карточки на страницу 
 formPlaceElement.addEventListener('submit', function (event) {
 	event.preventDefault();
 	const addedCard = { name: titleInput.value, link: pictureInput.value };
@@ -128,7 +125,7 @@ formPlaceElement.addEventListener('submit', function (event) {
 	closePopup(popupPlace);
 });
 
-// заполняем текущими данными поля попапа с картинкой при его открытии
+// заполняем текущими данными поля попапа с картинкой при его открытии 
 function fillPopupImage(event) {
 	popupImagePicture.src = event.target.src;
 	popupImageTitle.textContent = event.target.alt;
@@ -136,34 +133,32 @@ function fillPopupImage(event) {
 	openPopup(popupImage);
 }
 
-//  удаляем карточку при нажатии на значек
+//  удаляем карточку при нажатии на значек 
 function removeCard(evt) {
-	const card = evt.target.closest('.element') // сlosest находит весь блок карточки в разметке
+	const card = evt.target.closest('.element') // сlosest находит весь блок карточки в разметке 
 	card.remove();
 }
 
-// меняем стиль для лайка
+// меняем стиль для лайка 
 function likeCard(evt) {
 	evt.target.classList.toggle('element__like_active');
 }
 
-// Прикрепляем обработчик к форме редактирования профиля: 
+// Прикрепляем обработчик к форме редактирования профиля:  
 profileForm.addEventListener('submit', handleFormSubmit);
 
-// Обработчики попапа редактирования профиля
+// Обработчики попапа редактирования профиля 
 popupCloseButton.addEventListener('click', () => closePopup(popupProfile));
 popupProfile.addEventListener('click', () => closeOverlay(event, popupProfile));
 
-// Обработчики попапа c местом
+// Обработчики попапа c местом 
 popupAddButton.addEventListener('click', () => openPopup(popupPlace));
 popupPlaceClose.addEventListener('click', () => closePopup(popupPlace));
 popupPlace.addEventListener('click', () => closeOverlay(event, popupPlace));
 
-// Обработчики попапа c картинкой
+// Обработчики попапа c картинкой 
 popupImage.addEventListener('click', () => closeOverlay(event, popupImage));
 popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
 
-// первоначальное отображение карточек на странице
-initialCards.forEach(function (item) { addCard(createCard(item)); });
-
-
+// первоначальное отображение карточек на странице 
+initialCards.forEach(function (item) { addCard(createCard(item)); }); 
