@@ -1,3 +1,6 @@
+import { Card } from './Card.js';
+export { popupImagePicture, popupImageTitle, openPopup, popupImage };
+	
 const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('#popupProfile');
 const popupPlace = document.querySelector('#popupPlace');
@@ -92,57 +95,30 @@ const initialCards = [
 	}
 ];
 
-// создаем карточку и добавляем на каждую слушатели событий 
-const createCard = (element) => {
-	//  клонируем содержимое тега template и наполняем содержимым  
-	const cardElement = document.querySelector('#element-template').content.cloneNode(true);
-	const cardImage = cardElement.querySelector('.element__image');
-	const cardTitle = cardElement.querySelector('.element__title');
-	const cardRemove = cardElement.querySelector('.element__delete');
-	const cardLike = cardElement.querySelector('.element__like')
-
-	cardImage.src = element.link;
-	cardTitle.textContent = element.name;
-	cardImage.setAttribute('alt', element.name);
-
-	cardImage.addEventListener('click', fillPopupImage);
-	cardRemove.addEventListener('click', removeCard);
-	cardLike.addEventListener('click', likeCard);
-
-	return cardElement;
-};
-
-function addCard(element) {
-	elementsContainer.prepend(element);
-}
-
 // добавляем карточки на страницу 
 formPlaceElement.addEventListener('submit', function (event) {
 	event.preventDefault();
-	const addedCard = { name: titleInput.value, link: pictureInput.value };
-	addCard(createCard(addedCard));
+   const cardAdd = { name: titleInput.value, link: pictureInput.value };
+   addedCard(cardAdd);
 	elementForm.reset();
-	closePopup(popupPlace);
+   closePopup(popupPlace);
 });
 
-// заполняем текущими данными поля попапа с картинкой при его открытии 
-function fillPopupImage(event) {
-	popupImagePicture.src = event.target.src;
-	popupImageTitle.textContent = event.target.alt;
-	popupImagePicture.setAttribute('alt', event.target.alt);
-	openPopup(popupImage);
+// добавляем карточки на страницу 
+function addedCard(item) {
+   const card = new Card(item, '#element-template');
+   // Создаём карточку и возвращаем наружу
+   const cardElement = card.generateCard();
+   // Добавляем в DOM
+   document.querySelector('.elements__container').prepend(cardElement);
 }
 
-//  удаляем карточку при нажатии на значек 
-function removeCard(evt) {
-	const card = evt.target.closest('.element') // сlosest находит весь блок карточки в разметке 
-	card.remove();
-}
 
-// меняем стиль для лайка 
-function likeCard(evt) {
-	evt.target.classList.toggle('element__like_active');
-}
+// первоначальное отображение карточек
+initialCards.forEach((item) => {
+   addedCard(item);
+})
+
 
 // Прикрепляем обработчик к форме редактирования профиля:  
 profileForm.addEventListener('submit', handleFormSubmit);
@@ -160,5 +136,4 @@ popupPlace.addEventListener('click', () => closeOverlay(event, popupPlace));
 popupImage.addEventListener('click', () => closeOverlay(event, popupImage));
 popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
 
-// первоначальное отображение карточек на странице 
-initialCards.forEach(function (item) { addCard(createCard(item)); }); 
+
