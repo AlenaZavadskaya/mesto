@@ -1,4 +1,4 @@
-import { popupImagePicture, popupImageTitle, openPopup, popupImage } from './script.js';
+import { popupImagePicture, popupImageTitle, openPopup, popupImage } from './index.js';
 
 export class Card {
 	constructor(data, templateElement, openPopup) {
@@ -11,7 +11,7 @@ export class Card {
 	_getTemplate() {
 		// забираем размеку из HTML и клонируем элемент
 		const cardElement = document
-			.querySelector(this._templateElement) //this._template
+			.querySelector(this._templateElement)
 			.content
 			.cloneNode(true)
 			.querySelector('.element')

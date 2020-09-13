@@ -1,7 +1,8 @@
 import { Card } from './Card.js';
 export { popupImagePicture, popupImageTitle, openPopup, popupImage };
-	
-const popup = document.querySelector('.popup');
+import { config, FormValidator } from './FormValidator.js';
+
+
 const popupProfile = document.querySelector('#popupProfile');
 const popupPlace = document.querySelector('#popupPlace');
 const popupProfileOpenButton = document.querySelector('.edit-button');
@@ -17,7 +18,6 @@ const formPlaceElement = document.querySelector('#form-card');
 const placeNameInput = document.querySelector('.profile__name');
 const placeJobInput = document.querySelector('.profile__about');
 const popupImage = document.querySelector('#popupImage');
-const elementsContainer = document.querySelector('.elements__container');
 const elementForm = document.querySelector('#form-card');
 const popupImageCloseButton = popupImage.querySelector('.popup-image__close');
 const popupImagePicture = popupImage.querySelector('.popup-image__img');
@@ -113,6 +113,9 @@ function addedCard(item) {
    document.querySelector('.elements__container').prepend(cardElement);
 }
 
+// Создаем экземпляр класса валидации формы
+const form = new FormValidator(config, '.form');
+form.enableValidation();
 
 // первоначальное отображение карточек
 initialCards.forEach((item) => {
