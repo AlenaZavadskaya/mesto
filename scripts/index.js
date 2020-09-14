@@ -2,7 +2,6 @@ import { Card } from './Card.js';
 export { popupImagePicture, popupImageTitle, openPopup, popupImage };
 import { config, FormValidator } from './FormValidator.js';
 
-
 const popupProfile = document.querySelector('#popupProfile');
 const popupPlace = document.querySelector('#popupPlace');
 const popupProfileOpenButton = document.querySelector('.edit-button');
@@ -98,28 +97,29 @@ const initialCards = [
 // добавляем карточки на страницу 
 formPlaceElement.addEventListener('submit', function (event) {
 	event.preventDefault();
-   const cardAdd = { name: titleInput.value, link: pictureInput.value };
-   addedCard(cardAdd);
+	const cardAdd = { name: titleInput.value, link: pictureInput.value };
+	addedCard(cardAdd);
 	elementForm.reset();
-   closePopup(popupPlace);
+	closePopup(popupPlace);
 });
 
 // добавляем карточки на страницу 
 function addedCard(item) {
-   const card = new Card(item, '#element-template');
-   // Создаём карточку и возвращаем наружу
-   const cardElement = card.generateCard();
-   // Добавляем в DOM
-   document.querySelector('.elements__container').prepend(cardElement);
+	const card = new Card(item, '#element-template');
+	// Создаём карточку и возвращаем наружу
+	const cardElement = card.generateCard();
+	// Добавляем в DOM
+	document.querySelector('.elements__container').prepend(cardElement);
 }
 
 // Создаем экземпляр класса валидации формы
 const form = new FormValidator(config, '.form');
 form.enableValidation();
 
+
 // первоначальное отображение карточек
 initialCards.forEach((item) => {
-   addedCard(item);
+	addedCard(item);
 })
 
 
@@ -138,5 +138,4 @@ popupPlace.addEventListener('click', () => closeOverlay(event, popupPlace));
 // Обработчики попапа c картинкой 
 popupImage.addEventListener('click', () => closeOverlay(event, popupImage));
 popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
-
 
