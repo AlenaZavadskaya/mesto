@@ -34,8 +34,7 @@ function openPopupPlace(formPopup) {
 	cardForm.disabledValidation();
 	formPlaceElement.reset();
 	cardForm.disableSubmitButton('#addCard');
-	formPopup.classList.add('popup_opened');
-	document.addEventListener('keydown', escapeClose);
+	openPopup(formPopup);
 }
 
 // закрыть попап - х 
