@@ -1,11 +1,10 @@
 import { popupImagePicture, popupImageTitle, openPopup, popupImage } from './index.js';
 
 export class Card {
-	constructor(data, templateElement, openPopup) {
+	constructor(data, templateElement) {
 		this._title = data.name;
 		this._image = data.link;
 		this._templateElement = templateElement;
-		this._openPopup = openPopup;
 	}
 
 	_getTemplate() {
@@ -26,9 +25,12 @@ export class Card {
 		this._card = this._getTemplate();
 		this._setEventListeners();
 
-		this._card.querySelector('.element__image').src = this._image;
-		this._card.querySelector('.element__title').textContent = this._title;
-		this._card.querySelector('.element__image').setAttribute('alt', this._title);
+		this._cardPicture = this._card.querySelector('.element__image');
+		this._cardTitle = this._card.querySelector('.element__title');
+
+		this._cardPicture.src = this._image;
+		this._cardTitle.textContent = this._title;
+		this._cardPicture.setAttribute('alt', this._title);
 
 		// Вернём элемент наружу
 		return this._card;
@@ -55,6 +57,7 @@ export class Card {
 	//  удаляем карточку при нажатии на значек 
 	_removeCard() {
 		this._card.remove();
+		this._card = null;
 	}
 
 	// меняем стиль для лайка

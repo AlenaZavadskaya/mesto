@@ -17,16 +17,24 @@ const formPlaceElement = document.querySelector('#form-card');
 const placeNameInput = document.querySelector('.profile__name');
 const placeJobInput = document.querySelector('.profile__about');
 const popupImage = document.querySelector('#popupImage');
-const elementForm = document.querySelector('#form-card');
 const popupImageCloseButton = popupImage.querySelector('.popup-image__close');
 const popupImagePicture = popupImage.querySelector('.popup-image__img');
 const popupImageTitle = popupImage.querySelector('.popup-image__title');
+const cardsContainer = document.querySelector('.elements__container');
 
 
 // открыть попап  
 function openPopup(popupElement) {
-	elementForm.reset();
 	popupElement.classList.add('popup_opened');
+	document.addEventListener('keydown', escapeClose);
+}
+
+// открыть попап добавления карточек 
+function openPopupPlace(formPopup) {
+	cardForm.disabledValidation();
+	formPlaceElement.reset();
+	cardForm.disableSubmitButton('#addCard');
+	formPopup.classList.add('popup_opened');
 	document.addEventListener('keydown', escapeClose);
 }
 
@@ -47,12 +55,16 @@ function closeOverlay(event, popupElement) {
 function escapeClose(evt) {
 	if (evt.key === 'Escape') {
 		const openedPopup = document.querySelector('.popup_opened');
-		openedPopup.classList.remove('popup_opened');
+		closePopup(openedPopup);
 	}
 }
 
 // заполнить текущими данными поля попапа редактирования профиля при его открытии 
 popupProfileOpenButton.addEventListener('click', function () {
+	// очистить ошибки валидации при открытии формы
+	editForm.disabledValidation();
+	// включить кнопку
+	editForm.ableSubmitButton();
 	nameInput.value = placeNameInput.textContent;
 	jobInput.value = placeJobInput.textContent;
 	openPopup(popupProfile);
@@ -99,7 +111,7 @@ formPlaceElement.addEventListener('submit', function (event) {
 	event.preventDefault();
 	const cardAdd = { name: titleInput.value, link: pictureInput.value };
 	addedCard(cardAdd);
-	elementForm.reset();
+
 	closePopup(popupPlace);
 });
 
@@ -109,12 +121,15 @@ function addedCard(item) {
 	// Создаём карточку и возвращаем наружу
 	const cardElement = card.generateCard();
 	// Добавляем в DOM
-	document.querySelector('.elements__container').prepend(cardElement);
+	cardsContainer.prepend(cardElement);
 }
 
-// Создаем экземпляр класса валидации формы
-const form = new FormValidator(config, '.form');
-form.enableValidation();
+// Создаем экземпляы класса валидации форм
+const editForm = new FormValidator(config, '#form-edit');
+const cardForm = new FormValidator(config, '#form-card');
+
+editForm.enableValidation();
+cardForm.enableValidation();
 
 
 // первоначальное отображение карточек
@@ -131,9 +146,11 @@ popupCloseButton.addEventListener('click', () => closePopup(popupProfile));
 popupProfile.addEventListener('click', () => closeOverlay(event, popupProfile));
 
 // Обработчики попапа c местом 
-popupAddButton.addEventListener('click', () => openPopup(popupPlace));
+popupAddButton.addEventListener('click', () => openPopupPlace(popupPlace));
+document.querySelector('#addCard').addEventListener('submit', () => resetFormPopup(popupPlace));
 popupPlaceClose.addEventListener('click', () => closePopup(popupPlace));
 popupPlace.addEventListener('click', () => closeOverlay(event, popupPlace));
+
 
 // Обработчики попапа c картинкой 
 popupImage.addEventListener('click', () => closeOverlay(event, popupImage));

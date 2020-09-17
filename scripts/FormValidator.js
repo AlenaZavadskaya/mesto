@@ -20,9 +20,7 @@ export class FormValidator {
 	_showInputError = (formElement, inputElement, errorMessage) => {
 		// Находим элемент ошибки внутри самой функции
 		const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-
 		inputElement.classList.add(config.inputErrorClass);
-
 		// Заменим содержимое span с ошибкой на переданный параметр
 		errorElement.textContent = errorMessage;
 		// Показываем сообщение об ошибке
@@ -34,6 +32,7 @@ export class FormValidator {
 		// Находим элемент ошибки
 		const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
 		inputElement.classList.remove(config.errorClass);
+		inputElement.classList.remove(config.inputErrorClass);
 		// Скрываем сообщение об ошибке
 		errorElement.classList.remove(config.activeError);
 		// Очистим ошибку
@@ -49,8 +48,6 @@ export class FormValidator {
 			this._showInputError(formElement, inputElement, inputElement.validationMessage);
 		} else {
 			// Если проходит, скроем
-			// hideInputError теперь получает параметром форму, в которой
-			// находится проверяемое поле, и само это поле
 			this._hideInputError(formElement, inputElement);
 		}
 	};
@@ -68,19 +65,49 @@ export class FormValidator {
 	};
 
 	// Функция принимает массив полей ввода
-	// и элемент кнопки, состояние которой нужно менять
-	_toggleButtonState = (inputList, buttonElement) => {
+	_toggleButtonState = (inputList) => {
 		// Если есть хотя бы один невалидный инпут
 		if (this._hasInvalidInput(inputList)) {
 			// сделай кнопку неактивной
-			buttonElement.classList.add(config.inactiveButtonClass);
-			buttonElement.setAttribute('disabled', true);
+			this.disableSubmitButton();
 		} else {
 			// иначе сделай кнопку активной
-			buttonElement.removeAttribute('disabled');
-			buttonElement.classList.remove(config.inactiveButtonClass);
+			this.ableSubmitButton();
 		}
 	};
+
+	// теперь две функции по изменению состояния кнопки
+	ableSubmitButton = () => {
+		const buttonList = Array.from(document.querySelectorAll('.submit__button'));
+		buttonList.forEach((buttonElement) => {
+			buttonElement.removeAttribute('disabled');
+			buttonElement.classList.remove(config.inactiveButtonClass);
+		})
+	}
+
+	disableSubmitButton = () => {
+		const buttonList = Array.from(document.querySelectorAll('.submit__button'));
+		buttonList.forEach((buttonElement) => {
+			buttonElement.classList.add('submit__button_disabled');
+			buttonElement.setAttribute('disabled', true);
+		})
+	}
+
+	// Я добавила очищение форм от ошибок после открытия попапа (в предыдущей итерации этого не было)
+	disabledValidation = () => {
+		const inputList = Array.from(document.querySelectorAll('.form__item'));
+		const errorList = Array.from(document.querySelectorAll('.form__item-error'));
+
+		// Присвоить всем инпутам нужный класс.
+		inputList.forEach((inputElem) => {
+			inputElem.classList.remove('form__item_error');
+		})
+		// Присвоить всем спанам нужный класс и "пустой" текст.
+		errorList.forEach((errorElem) => {
+			errorElem.classList.add('.form__item-error');
+			errorElem.textContent = '';
+		})
+	}
 
 	_setEventListeners = (formElement) => {
 		// Найдём все поля формы и сделаем из них массив
