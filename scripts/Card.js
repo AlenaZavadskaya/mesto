@@ -1,10 +1,13 @@
-import { popupImagePicture, popupImageTitle, openPopup, popupImage } from './index.js';
+
+import PopupWithImage from './PopupWithImage.js';
 
 export class Card {
-	constructor(data, templateElement) {
+	constructor(data, templateElement, { handleCardClick }) {
 		this._title = data.name;
 		this._image = data.link;
 		this._templateElement = templateElement;
+		//this.open = open;
+		this._handleCardClick = handleCardClick;
 	}
 
 	_getTemplate() {
@@ -40,9 +43,9 @@ export class Card {
 		this._cardRemove = this._card.querySelector('.element__delete');
 		this._cardLike = this._card.querySelector('.element__like');
 		this._cardImage = this._card.querySelector('.element__image');
-
+		
 		this._cardImage.addEventListener('click', () => {
-			this._fillPopupImage();
+			this._handleCardClick(this._card);
 		});
 
 		this._cardRemove.addEventListener('click', () => {
@@ -66,10 +69,10 @@ export class Card {
 	}
 
 	// заполняем текущими данными поля попапа с картинкой при его открытии
-	_fillPopupImage() {
+/*	_fillPopupImage() {
 		popupImagePicture.src = this._image;
 		popupImageTitle.textContent = this._title;
 		popupImagePicture.setAttribute('alt', this._image);
-		openPopup(popupImage);
-	}
+		open(popupImage);
+	}*/
 }
