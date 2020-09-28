@@ -1,12 +1,10 @@
-
-import PopupWithImage from './PopupWithImage.js';
-
 export class Card {
+
 	constructor(data, templateElement, { handleCardClick }) {
+
 		this._title = data.name;
 		this._image = data.link;
 		this._templateElement = templateElement;
-		//this.open = open;
 		this._handleCardClick = handleCardClick;
 	}
 
@@ -67,12 +65,4 @@ export class Card {
 	_likeCard() {
 		this._cardLike.classList.toggle('element__like_active');
 	}
-
-	// заполняем текущими данными поля попапа с картинкой при его открытии
-/*	_fillPopupImage() {
-		popupImagePicture.src = this._image;
-		popupImageTitle.textContent = this._title;
-		popupImagePicture.setAttribute('alt', this._image);
-		open(popupImage);
-	}*/
 }

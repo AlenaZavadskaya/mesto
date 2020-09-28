@@ -11,7 +11,9 @@ export const config = {
 
 
 export class FormValidator {
+
 	constructor(config, formElement) {
+
 		this._config = config;
 		this._formElement = formElement;
 	}
@@ -93,7 +95,7 @@ export class FormValidator {
 		})
 	}
 
-	// Я добавила очищение форм от ошибок после открытия попапа (в предыдущей итерации этого не было)
+	// очищение форм от ошибок после открытия попапа
 	disabledValidation = () => {
 		const inputList = Array.from(document.querySelectorAll('.form__item'));
 		const errorList = Array.from(document.querySelectorAll('.form__item-error'));
