@@ -11,9 +11,17 @@ export const titleInput = document.querySelector('.form__item_title');
 export const placeNameInput = document.querySelector('.profile__name');
 export const placeJobInput = document.querySelector('.profile__about');
 export const popupImage = document.querySelector('#popupImage');
-export const popupImagePicture = popupImage.querySelector('.popup-image__img');
-export const popupImageTitle = popupImage.querySelector('.popup-image__title');
 export const cardsContainer = document.querySelector('.elements__container');
+export const config = {
+	formSelector: '.form',
+	fieldSetSelector: '.form__input-container',
+	inputSelector: '.form__item',
+	submitButtonSelector: '.submit__button',
+	inactiveButtonClass: 'submit__button_disabled',
+	inputErrorClass: 'form__item_error',
+	errorClass: 'form__item-error',
+	activeError: 'form__item-error_active'
+};
 export const initialCards = [
 	{
 		name: 'Озеро Брайес, Италия',

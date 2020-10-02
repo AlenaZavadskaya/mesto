@@ -9,9 +9,13 @@ export default class Section {
 	}
 
 	// принимает DOM-элемент и добавляет его в контейнер
-	addItem(item) {
-		this._container.prepend(item);
-	}
+	addItem(item, isArray) {
+		if (isArray) { 
+      this._container.append(item); 
+		} else { 
+      this._container.prepend(item); 
+		} 
+  }
 
 	// Отрисовка отдельного элемента
 	renderItem(item) {

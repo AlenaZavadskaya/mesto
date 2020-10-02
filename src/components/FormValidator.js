@@ -1,14 +1,4 @@
-export const config = {
-	formSelector: '.form',
-	fieldSetSelector: '.form__input-container',
-	inputSelector: '.form__item',
-	submitButtonSelector: '.submit__button',
-	inactiveButtonClass: 'submit__button_disabled',
-	inputErrorClass: 'form__item_error',
-	errorClass: 'form__item-error',
-	activeError: 'form__item-error_active'
-};
-
+import { config } from '../utils/constants.js';
 
 export class FormValidator {
 

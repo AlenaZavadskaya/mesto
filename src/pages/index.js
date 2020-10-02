@@ -1,4 +1,4 @@
-import './pages/index.css';
+import './index.css';
 import {
 	popupProfile,
 	popupPlace,
@@ -13,14 +13,15 @@ import {
 	placeJobInput,
 	popupImage,
 	cardsContainer,
-	initialCards
-} from './utils/constants.js';
-import { Card } from './components/Card.js';
-import { config, FormValidator } from './components/FormValidator.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+	initialCards,
+	config
+} from '../utils/constants.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 
 
@@ -38,40 +39,42 @@ const profile = new PopupWithForm({
 	}
 });
 
+function getCard(item) {
+	const card = new Card(item, '#element-template', {
+		handleCardClick: () => {
+			popupWithImage.open(card);
+			popupWithImage.setEventListeners();
+		}
+	});
+	return card
+}
+
 // добавляем изначальный массив карточек на страницу
 const cardsList = new Section({
 	items: initialCards,
 	renderer: (item) => {
-		const card = new Card(item, '#element-template', {
-			handleCardClick: () => {
-				popupWithImage.open(card);
-				popupWithImage.setEventListeners();
-			}
-		});
+		const card = getCard(item);
 		// Создаём карточку и возвращаем наружу
 		const cardElement = card.generateCard();
 		// Добавляем в DOM
-		cardsList.addItem(cardElement);
+		cardsList.addItem(cardElement, true);
 
 	}
 },
 	cardsContainer
 );
 
+
 // добавление новых карточек на страницу
 const popupPlaceForm = new PopupWithForm({
 	popupSelector: popupPlace,
 	submitHandler: () => {
+		// debugger
 		const cardAdd = { name: titleInput.value, link: pictureInput.value };
 		const newCards = new Section({
 			items: cardAdd,
 			renderer: (item) => {
-				const card = new Card(item, '#element-template', {
-					handleCardClick: () => {
-						popupWithImage.open(card);
-						popupWithImage.setEventListeners();
-					}
-				});
+				const card = getCard(item);
 				// Создаём карточку и возвращаем наружу
 				const cardElement = card.generateCard();
 				// Добавляем в DOM

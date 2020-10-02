@@ -1,5 +1,4 @@
 import Popup from './Popup.js';
-import { profileForm, placeForm } from '../utils/constants.js';
 
 export default class PopupWithForm extends Popup {
 
@@ -7,27 +6,35 @@ export default class PopupWithForm extends Popup {
 		super(popupSelector);
 
 		this._submitHandler = submitHandler;
+		this._formSubmitHandler = this._formSubmitHandler.bind(this);
 	}
 
 	_getInputValues() {
-		const inputList = Array.from(this._popupSelector.querySelectorAll('.form__item'));
+		this._inputList = Array.from(this._popupSelector.querySelectorAll('.form__item'));
+		this._formValues = {};
+		this._inputList.forEach(input => 
+			this._formValues[input.name] = input.value);
 
-		return inputList;
+		return this._formValues;
 	}
 
 	close() {
-		const inputList = this._getInputValues();
-
-		inputList.forEach(element => {
-			element.textContent = '';
-		});
-
+		const inputList = Array.from(this._popupSelector.querySelectorAll('.form__item'));
+		inputList.forEach(element => { 
+			element.textContent = ''; 
+		}); 
+		this._popupSelector.removeEventListener('submit', this._formSubmitHandler);
 		super.close();
 	}
 
+	_formSubmitHandler(evt) {
+    evt.preventDefault();
+    this._submitHandler(this._getInputValues());
+  }
+
+
 	setEventListeners() {
-		profileForm.addEventListener('submit', this._submitHandler);
-		placeForm.addEventListener('submit', this._submitHandler);
+			this._popupSelector.addEventListener('submit', this._formSubmitHandler);
 
 		super.setEventListeners();
 	}
