@@ -1,5 +1,3 @@
-import { config } from '../utils/constants.js';
-
 export class FormValidator {
 
 	constructor(config, formElement) {
@@ -12,21 +10,21 @@ export class FormValidator {
 	_showInputError = (formElement, inputElement, errorMessage) => {
 		// Находим элемент ошибки внутри самой функции
 		const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-		inputElement.classList.add(config.inputErrorClass);
+		inputElement.classList.add('form__item_error');
 		// Заменим содержимое span с ошибкой на переданный параметр
 		errorElement.textContent = errorMessage;
 		// Показываем сообщение об ошибке
-		errorElement.classList.add(config.activeError);
+		errorElement.classList.add('form__item-error_active');
 	};
 
 	// Функция, которая удаляет класс с ошибкой
 	_hideInputError = (formElement, inputElement) => {
 		// Находим элемент ошибки
 		const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-		inputElement.classList.remove(config.errorClass);
-		inputElement.classList.remove(config.inputErrorClass);
+		inputElement.classList.remove('form__item-error');
+		inputElement.classList.remove('form__item_error');
 		// Скрываем сообщение об ошибке
-		errorElement.classList.remove(config.activeError);
+		errorElement.classList.remove('form__item-error_active');
 		// Очистим ошибку
 		errorElement.textContent = '';
 	};
@@ -73,7 +71,7 @@ export class FormValidator {
 		const buttonList = Array.from(document.querySelectorAll('.submit__button'));
 		buttonList.forEach((buttonElement) => {
 			buttonElement.removeAttribute('disabled');
-			buttonElement.classList.remove(config.inactiveButtonClass);
+			buttonElement.classList.remove('submit__button_disabled');
 		})
 	}
 
@@ -103,9 +101,9 @@ export class FormValidator {
 
 	_setEventListeners = (formElement) => {
 		// Найдём все поля формы и сделаем из них массив
-		const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+		const inputList = Array.from(formElement.querySelectorAll('.form__item'));
 		// Найдём в текущей форме кнопку отправки
-		const buttonElement = formElement.querySelector(config.submitButtonSelector);
+		const buttonElement = formElement.querySelector('.submit__button');
 		// Вызовем toggleButtonState, чтобы не ждать ввода данных в поля
 		this._toggleButtonState(inputList, buttonElement);
 
@@ -125,7 +123,7 @@ export class FormValidator {
 	enableValidation = () => {
 		// Найдём все формы с указанным классом в DOM,
 		// сделаем из них массив методом Array.from
-		const formList = Array.from(document.querySelectorAll(config.formSelector));
+		const formList = Array.from(document.querySelectorAll('.form'));
 
 		// Переберём полученную коллекцию
 		formList.forEach((formElement) => {
