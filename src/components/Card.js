@@ -1,10 +1,12 @@
 export class Card {
 
-	constructor(data, templateElement, { handleCardClick }) {
-
+constructor(data, templateElement, { handleCardClick }, api) {
 		this._title = data.name;
 		this._image = data.link;
+		this._id = data.id;
 		this._templateElement = templateElement;
+		this._api = api;
+		
 		this._handleCardClick = handleCardClick;
 	}
 
@@ -32,7 +34,7 @@ export class Card {
 		this._cardPicture.src = this._image;
 		this._cardTitle.textContent = this._title;
 		this._cardPicture.setAttribute('alt', this._title);
-
+		// this._id.textContent = this._id;
 		// Вернём элемент наружу
 		return this._card;
 	}
@@ -45,9 +47,13 @@ export class Card {
 		this._cardImage.addEventListener('click', () => {
 			this._handleCardClick(this._card);
 		});
-
+		
 		this._cardRemove.addEventListener('click', () => {
-			this._removeCard();
+		debugger
+			// this._api.deleteCard(this._id).then(() => {
+				this._removeCard();
+				debugger
+			// }).catch((err) => console.log(err));			
 		});
 
 		this._cardLike.addEventListener('click', () => {
@@ -57,7 +63,9 @@ export class Card {
 
 	//  удаляем карточку при нажатии на значек 
 	_removeCard() {
-		this._card.remove();
+	//  evt.target.remove();
+	
+	  this._card.remove();
 		this._card = null;
 	}
 

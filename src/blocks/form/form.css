@@ -13,7 +13,7 @@
 
 
 .form {
-  min-height: 330px;
+  min-height: 181px;
   width: 430px;
   display: flex;
   flex-direction: column;
@@ -26,6 +26,5 @@
 @media screen and (max-width: 500px) {
   .form {
     width: 240px;
-    min-height: 258px;
   }
 }

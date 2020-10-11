@@ -5,7 +5,7 @@
   width: 20.76px;
   transition: 0.3s linear;
   border: none;
-  padding: 0;
+	padding: 0;
 }
 
 .element__like:hover {
@@ -17,3 +17,4 @@
 .element__like:focus {
   outline: none;
 }
+

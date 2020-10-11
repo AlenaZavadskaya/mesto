@@ -13,14 +13,17 @@
 	</header>
 	<main class="content">
 		<section class="profile">
-			<img class="profile__avatar" src="images/avatar.jpg" alt="Жак-Ив Кусто.">
+			<div class="profile__cont">
+				<img class="profile__avatar" src="#" alt="Жак-Ив Кусто.">
+				<div class="profile__icon"></div>
+		</div>
 			<div class="profile__container">
 				<div class="profile__wrapper">
 					<div class="profile__info">
-						<h1 class="profile__name">Жак-Ив Кусто</h1>
+						<h1 class="profile__name"></h1>
 						<button class="edit-button" type="button"></button>
 					</div>
-					<p class="profile__about">Исследователь океана</p>
+					<p class="profile__about"></p>
 				</div>
 				<button class="add-button" type="button"></button>
 			</div>
@@ -41,10 +44,10 @@
 					<h2 class="form__heading">Редактировать профиль</h2>
 					<fieldset class="form__input-container">
 						<label class="form__field"><input id="name-input" class="form__item form__item_name" type="text"
-								value="Жак-Ив Кусто" name="full_name" placeholder="Имя" minlength="2" maxlength="40" required>
+								value="" name="full_name" placeholder="Имя" minlength="2" maxlength="40" required>
 							<span id="name-input-error" class="form__item-error"></span></label>
 						<label class="form__field form__field-info"><input id="about-input" class="form__item form__item_about"
-								type="text" value="Исследователь океана" name="about" placeholder="О себе" minlength="2" maxlength="200"
+								type="text" value="" name="about" placeholder="О себе" minlength="2" maxlength="200"
 								required>
 							<span id="about-input-error" class="form__item-error"></span></label>
 						<div class="form__handlers">
@@ -85,13 +88,43 @@
 			</figure>
 		</div>
 	</section>
+	<section class="popup popup-submit" id="popupWithSubmit">
+		<div class="popup__container">
+			<form class="form form-submit" id="form-submit" action="URL" novalidate>
+			<button class="popup__close" type="button" id="popupSubmitClose"></button>
+			<h2 class="form__heading form-submit__question">Вы уверены?</h2>
+			<button class="submit__button" id="yes" type="submit">Да</button>
+		</form>
+		</div>
+	</section>
+	<section class="popup popupAvatar" id="popupAvatar">
+		<div class="popup__container">
+			<button class="popup__close" type="button" id="popupAvatarClose"></button>
+			<form class="form" action="URL" id="form-avatar" novalidate>
+				<div class="form__container">
+					<h2 class="form__title">Обновить аватар</h2>
+					<fieldset class="form__input-container">
+						<label class="form__field form__field-info"><input id="url-input" class="form__item form__item_avatar form__item_link"
+								type="url" value="" name="link" placeholder="Ссылка на картинку" required>
+							<span id="url-input-error" class="form__item-error"></span></label>
+						<div class="form__handlers">
+							<button class="submit__button" id="addCard" type="submit">Сохранить</button>
+						</div>
+					</fieldset>
+				</div>
+			</form>
+		</div>
+	</section>
 	<template id="element-template">
 		<li class="element">
 			<img class="element__image" src="#" alt="">
 			<button class="element__delete" type="reset"></button>
 			<div class="element__name">
 				<h2 class="element__title"></h2>
+				<div class="element__container">
 				<button class="element__like" type="button"></button>
+				<div class="element__caunter">1</div>
+			</div>
 			</div>
 		</li>
 	</template>

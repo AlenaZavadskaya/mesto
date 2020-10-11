@@ -139,3 +139,18 @@ export class FormValidator {
 	};
 }
 
+// function loadImage(imageUrl) {
+//   const image = document.createElement('img');
+//   image.src = imageUrl;
+//   image.onerror = errorCallback;
+//   image.onload = loadCallback;
+  
+//   return new Promise((resolve, reject) => {
+//     resolve.then(function (evt) {
+//     document.body.append(evt.target);
+//   }); 
+//     reject.catch(function (value) {
+//     console.log('Всё идёт не по плану');
+//   }); 
+//   });
+// }
