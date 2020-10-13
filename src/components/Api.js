@@ -1,14 +1,17 @@
 import { avatarInput, jobInput, nameInput } from "../utils/constants";
 
 export class Api {
-  constructor(options) {
+	constructor(options) {
 		this._url = options.url;
 		this._headers = options.headers;
 		this._body = options.body;
-  }
+		this._users = options.users;
+		this._id = options.id;
+		this._me = options.me;
+	}
 
 	getUserData() {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
+		return fetch(`${this._url}${'users'}/${'me'}`, {
 			method: 'GET',
 			headers: {
 				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8'
@@ -16,7 +19,6 @@ export class Api {
 		})
 			.then(res => {
 				if (res.ok) {
-					console.log(res)
 					return res.json(); // возвращаем результат работы метода и идём в следующий then
 				}
 
@@ -26,7 +28,7 @@ export class Api {
 	}
 
 	editUserData() {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me', {
+		return fetch(`${this._url}${'users'}/${'me'}`, {
 			method: 'PATCH',
 			headers: this._headers,
 			body: JSON.stringify({
@@ -45,11 +47,11 @@ export class Api {
 	}
 
 	editAvatar() {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/users/me/avatar', {
+		return fetch(`${this._url}${'users'}/${'me'}/${'avatar'}`, {
 			method: 'PATCH',
 			headers: this._headers,
-			body: JSON.stringify({avatar: avatarInput.value})
-				})
+			body: JSON.stringify({ avatar: avatarInput.value })
+		})
 			.then(res => {
 				if (res.ok) {
 					return res.json(); // возвращаем результат работы метода и идём в следующий then
@@ -59,10 +61,9 @@ export class Api {
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
-	
 
-  getInitialCards() {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
+	getInitialCards() {
+		return fetch(`${this._url}${'cards'}`, {
 			method: 'GET',
 			headers: this._headers
 		})
@@ -74,19 +75,10 @@ export class Api {
 				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
-		
-		// .then(function (res) {
-    //     return res.json(); // возвращаем результат работы метода и идём в следующий then
-    //   }).then(function (data) {
-		// 		// console.log(data); // если мы попали в этот then, data — это объект
-		// 	return data[0].link, data[0].name
-    //   }).catch(function (err) {
-    //     console.log('Ошибка. Запрос не выполнен');
-    //   });
 	}
 
 	addCards(data) {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
+		return fetch(`${this._url}${'cards'}`, {
 			method: 'POST',
 			headers: {
 				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
@@ -105,8 +97,7 @@ export class Api {
 	}
 
 	deleteCard(data) {
-		debugger
-		return fetch(`https://mesto.nomoreparties.co/v1/cohortId/cards/${_id}`, {
+		return fetch(`${this._url}${'cards'}/${data._id}`, {
 			method: 'DELETE',
 			headers: {
 				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
@@ -124,6 +115,41 @@ export class Api {
 			});
 	}
 
-  // другие методы работы с API
+	addLike(data) {
+		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
+			method: 'PUT',
+			headers: {
+				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+			.then(res => {
+				if (res.ok) {
+					return res.json();
+				}
+
+				// если ошибка, отклоняем промис
+				return Promise.reject(`Ошибка: ${res.status}`);
+			});
+	}
+
+	removeLikes(data) {
+		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
+			method: 'DELETE',
+			headers: {
+				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
+				'Content-Type': 'application/json'
+			}
+		})
+			.then(res => {
+				if (res.ok) {
+					return res.json();
+				}
+
+				// если ошибка, отклоняем промис
+				return Promise.reject(`Ошибка: ${res.status}`);
+			});
+	}
 }
 

@@ -6,7 +6,9 @@
   width: 18px;
   height: 19.3px;
   border: none;
-  padding: 0;
+	padding: 0;
+	opacity: 0;
+  visibility: hidden;
 }
 
 .element__delete:hover {
@@ -17,4 +19,9 @@
 
 .element__delete:focus {
   outline: none;
+}
+
+.element__delete-active {
+	opacity: 1;
+  visibility: visible;
 }

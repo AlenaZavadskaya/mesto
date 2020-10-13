@@ -17,8 +17,7 @@ import {
 	popupWithSubmit,
 	popupAvatar,
 	popupAvatarOpenButton,
-	avatarInput,
-	placeAvatarInput
+	placeAvatarInput,
 } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
@@ -28,7 +27,8 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import PicturePopup from '../components/PicturePopup.js';
 import { Api } from '../components/Api.js';
-
+import Popup from '../components/Popup.js';
+import PopupWithSubmit from '../components/PopupWithSubmit';
 
 
 const popupWithImage = new PopupWithImage(popupImage);
@@ -36,76 +36,77 @@ const userInfo = new UserInfo(placeNameInput, placeJobInput, 'https://mesto.nomo
 const editForm = new FormValidator(config, '#form-edit');
 const cardForm = new FormValidator(config, '#form-card');
 const avatarForm = new FormValidator(config, '#form-avatar');
-const picturePopup = new PicturePopup(popupWithSubmit);
 
 
-// document.querySelector('.element__delete').addEventListener('click', picturePopup.open());
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-16/cards',
-  headers: {
-    authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-    'Content-Type': 'application/json'
-  },
+	url: 'https://mesto.nomoreparties.co/v1/cohort-16/',
+	headers: {
+		authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
+		'Content-Type': 'application/json'
+	},
 });
 
 
 const apiUser = api.getUserData();
 apiUser.then((data) => {
 	const userData = userInfo.getUserInfo(data);
-	userInfo.saveUserInfo(userData, placeNameInput, placeJobInput, placeAvatarInput);
+	placeAvatarInput.src = data.avatar;
+	nameInput.value = data.name;
+	jobInput.value = data.about;
+	userInfo.setUserInfo(userData);
 })
-
-
+	.catch((err) => {
+		console.log(`Ошибка: ${err}`);
+	});
 
 
 const profile = new PopupWithForm({
 	popupSelector: popupProfile,
 	submitHandler: () => {
+		profile.renderLoading(true);
 		const apiEditUser = api.editUserData({
 			name: nameInput.value,
 			about: jobInput.value
 		});
 		apiEditUser.then((data) => {
-			console.log(data)
-			debugger
-			userInfo.saveUserInfo(data);
 			userInfo.setUserInfo(data);
 		})
-		debugger
+			.catch((err) => {
+				console.log(`Ошибка: ${err}`);
+			})
+
+
 		const apiUser = api.getUserData();
 		apiUser.then((data) => {
-			console.log(data)
 			const userData = userInfo.getUserInfo(data);
 			userData.name = nameInput.value;
 			userData.about = jobInput.value;
 		})
-		
-		debugger
-		// userInfo.setUserInfo(nameInput, jobInput);
+			.catch((err) => {
+				console.log(`Ошибка: ${err}`);
+			})
+			.finally(profile.renderLoading(false));
 		profile.close();
 	}
 });
 
 
+
 const avatar = new PicturePopup({
 	popupSelector: popupAvatar,
 	submitHandler: () => {
+		avatar.renderLoading(true);
 		const apiUser = api.editAvatar();
 		apiUser.then((data) => {
-			console.log(data)
-			// debugger
-			
 			const userData = userInfo.getUserInfo(data);
 			userInfo.saveUserInfo(userData, placeNameInput, placeJobInput, placeAvatarInput);
 		})
-		// apiEditUser.then((data) => {
-		// 	debugger
-		// 	const userData = userInfo.setUserInfo(data);
-		// userData.name = nameInput.value;
-		// userData.about = jobInput.value;
-		// })
-		// userInfo.setUserInfo(nameInput, jobInput);
+			.catch((err) => {
+				console.log(`Ошибка: ${err}`);
+			})
+			.finally(avatar.renderLoading(false));
+
 		avatar.close();
 	}
 })
@@ -114,79 +115,118 @@ const avatar = new PicturePopup({
 const apiCard = api.getInitialCards();
 apiCard.then((el) => {
 	const cardsList = new Section({
-		items : el/*.map((item) => {
-			console.log(item.name, item.link);
-			// console.log(data);
-		})*/, 
+		items: el,
 		renderer: (item) => {
-			// console.log(item);
 			const card = getCard(item);
 			// Создаём карточку и возвращаем наружу
 			const cardElement = card.generateCard();
 			// Добавляем в DOM
 			cardsList.addItem(cardElement);
-			
+
 		}
 	},
 		cardsContainer,
 		'https://mesto.nomoreparties.co/v1/cohort-16/cards'
 	);
 	cardsList.rendererItems();
-	// cardElement.textContent = data[0].name;
-	// cardElement.src = data[0].link;
-	// console.log(cardElement);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+})
+	.catch((err) => {
+		console.log(err);
+	});
+
 
 
 
 function getCard(item) {
-	const card = new Card(item, '#element-template', 'https://mesto.nomoreparties.co/v1/cohort-16'/*, {
-		handleCardClick: () => {
-			debugger
-			popupWithImage.open(card);
-			popupWithImage.setEventListeners();
-		}
-	}*/); 
+	const card = new Card(item, '#element-template',
+		{
+			handleCardClick: () => {
+				popupWithImage.open(card);
+				popupWithImage.setEventListeners();
+			}
+		},
+		{
+			deleteCard: () => {
+
+				const popupSubmit = new PopupWithSubmit({
+					popupSelector: popupWithSubmit,
+					submitHandler: () => {
+						const apiDeleteCard = api.deleteCard(card);
+						apiDeleteCard.then(() => {
+							card.removeCard();
+							popupSubmit.close();
+						})
+							.catch((err) => {
+								console.log(`Ошибка: ${err}`);
+							});
+					}
+				});
+				popupSubmit.open();
+				popupSubmit.setEventListeners();
+			},
+			addLike: () => {
+
+				const apiLikeCard = api.addLike(card);
+				apiLikeCard.then((data) => {
+					card.setLikesCounter(data);
+				})
+					.catch((err) => {
+						console.log(`Ошибка: ${err}`);
+					});
+			},
+			removeLike: () => {
+
+				const apiRemoveLike = api.removeLikes(card);
+				apiRemoveLike.then((data) => {
+					card.setLikesCounter(data);
+				})
+					.catch((err) => {
+						console.log(`Ошибка: ${err}`);
+					});
+			}
+
+		},
+		'https://mesto.nomoreparties.co/v1/cohort-16/cards');
 	return card
 }
 
 
 // добавление новых карточек на страницу
 const popupPlaceForm = new PopupWithForm({
-		popupSelector: popupPlace,
-		submitHandler: () => {
-			debugger
-			const apiNewCard = api.addCards({
-				name: titleInput.value,
-				link: pictureInput.value,
-				// id: _id
-			
-			});
+	popupSelector: popupPlace,
+	submitHandler: () => {
+		popupPlaceForm.renderLoading(true);
+		const apiNewCard = api.addCards({
 
-			apiNewCard.then((data) => {
-				debugger
-				// const cardAdd = { name: data.name, link: data.link };
-				const newCards = new Section({
-					items: data,
-					renderer: (item) => {
-						const card = getCard(item);
-						// Создаём карточку и возвращаем наружу
-						const cardElement = card.generateCard();
-						// Добавляем в DOM
-						newCards.addItem(cardElement);
-					}
-				},
-					cardsContainer,
-					'https://mesto.nomoreparties.co/v1/cohort-16/cards'
-				);
-				newCards.renderItem(data);
-				popupPlaceForm.close();
+			name: titleInput.value,
+			link: pictureInput.value,
+		});
+
+		apiNewCard.then((data) => {
+			const newCards = new Section({
+				items: data,
+				renderer: (item) => {
+					const card = getCard(item);
+					// console.log(item);
+					// Создаём карточку и возвращаем наружу
+					const cardElement = card.generateCard();
+					// Добавляем в DOM
+					newCards.addItem(cardElement);
+				}
+			},
+				cardsContainer,
+				'https://mesto.nomoreparties.co/v1/cohort-16/cards'
+			);
+			popupPlaceForm.renderLoading(false)
+			newCards.renderItem(data);
+			popupPlaceForm.close();
+		})
+			.catch((err) => {
+				console.log(`Ошибка: ${err}`);
 			})
-		}
-	});
+		// .finally(popupPlaceForm.renderLoading(false));
+	}
+});
 
 
 popupAvatarOpenButton.addEventListener('click', () => {
@@ -196,7 +236,7 @@ popupAvatarOpenButton.addEventListener('click', () => {
 	avatar.setEventListeners();
 })
 
-
+// обработчик 
 popupPlaceAddButton.addEventListener('click', () => {
 	cardForm.disabledValidation();
 	cardForm.disableSubmitButton('#addCard');
@@ -205,22 +245,23 @@ popupPlaceAddButton.addEventListener('click', () => {
 	popupPlaceForm.setEventListeners();
 });
 
+
 // заполнить текущими данными поля попапа редактирования профиля при его открытии 
 popupProfileOpenButton.addEventListener('click', () => {
 	// очистить ошибки валидации при открытии формы
 	editForm.disabledValidation();
 	// включить кнопку
 	editForm.ableSubmitButton();
-
 	apiUser.then((data) => {
 		const userData = userInfo.getUserInfo(data);
-		nameInput.value = userData.name;
-		jobInput.value = userData.about;
-	})
-	// const userProfileInfo = userInfo.getUserInfo();
-	// nameInput.value = userProfileInfo.name;
-	// jobInput.value = userProfileInfo.info;
+		userInfo.setUserInfo(userData);
+		// nameInput.value = userData.name;
+		// jobInput.value = userData.about;
 
+	})
+		.catch((err) => {
+			console.log(`Ошибка: ${err}`);
+		})
 	profile.open();
 	profile.setEventListeners();
 });
@@ -228,24 +269,3 @@ popupProfileOpenButton.addEventListener('click', () => {
 
 editForm.enableValidation();
 cardForm.enableValidation();
-
-
-// первоначальное отображение карточек
-// cardsList.rendererItems();
-
-
-
-// удаление карточек
-
-// «remove from stove» — значит «убрать с плиты»
-// function removeFromStove(evt) {
-//   evt.target.remove();
-// }
-
-// // «pan with eggs» — значит «сковорода с яйцами»
-// const panWithEggs = document.querySelector('#pan');
-
-// // при клике по элементу panWithEggs, он будет убран с плиты
-// panWithEggs.addEventListener('click', removeFromStove);
-
-// следующий код

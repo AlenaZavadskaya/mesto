@@ -1,22 +1,20 @@
 export default class Section {
 
-	constructor({ items, renderer }, containerSelector, api) {
+	constructor({ items, renderer }, containerSelector) {
 
-		this._items = items; // это массив объекта (карточек) initialCards
+		this._items = items;
 		this._renderer = renderer;
 		this._container = containerSelector;
-		this._api = api;
 	}
 
 	// принимает DOM-элемент и добавляет его в контейнер
 	addItem(item, isArray) {
-		// debugger
-		if (isArray) { 
-      this._container.append(item); 
-		} else { 
-      this._container.prepend(item); 
-		} 
-  }
+		if (isArray) {
+			this._container.append(item);
+		} else {
+			this._container.prepend(item);
+		}
+	}
 
 	// saveItem(data) {
 	// 	debugger
@@ -35,8 +33,7 @@ export default class Section {
 	// Перебираем каждый элемент массива
 	rendererItems() {
 		this._items.forEach(item => {
-			// this._renderer(item); // вызываем renderer, передав item
-			this._renderer({name: item.name, link: item.link, id: item._id});
+			this._renderer({ name: item.name, link: item.link, _id: item._id, owner: item.owner, likes: item.likes });
 		})
 	}
 

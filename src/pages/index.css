@@ -19,5 +19,5 @@
 @import url(../blocks/form/__item/_error/form__item_error.css);
 @import url(../blocks/form/__item-error/_active/form__item-error_active.css);
 @import url(../blocks/submit__button/_disabled/submit__button_disabled.css);
-@import url(../blocks/popup-submit/popup-submit.css);
+@import url(../blocks/popup-submit__button/popup-submit__button.css);
 @import url(../blocks/form-submit/form-submit.css);

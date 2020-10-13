@@ -5,7 +5,7 @@
 @import url(./__like/_active/element__like_active.css);
 @import url(./__delete/element__delete.css);
 @import url(./__container/element__container.css);
-@import url(./__caunter/element__caunter.css);
+@import url(./__counter/element__counter.css);
 
 .element {
   max-width: 282px;
