@@ -16,15 +16,6 @@ export default class Section {
 		}
 	}
 
-	// saveItem(data) {
-	// 	debugger
-	// 	this._api
-	// 		.addCards({ name: data.name, link: data.link })
-	// 		.then((data) => this.addItem(data.name, data.link))
-	// 		.catch((err) => console.log(err));
-	// 	debugger
-	// }
-
 	// Отрисовка отдельного элемента
 	renderItem(item) {
 		this._renderer(item);
@@ -36,5 +27,4 @@ export default class Section {
 			this._renderer({ name: item.name, link: item.link, _id: item._id, owner: item.owner, likes: item.likes });
 		})
 	}
-
 }

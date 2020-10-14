@@ -1,11 +1,10 @@
 export default class UserInfo {
 
-	constructor(name, about, avatar, api) {
+	constructor(name, about, avatar) {
 
 		this._nameSelector = name;
 		this._infoSelector = about;
 		this._avatar = avatar;
-		this._api = api;
 	}
 
 	getUserInfo(data) {
@@ -25,7 +24,7 @@ export default class UserInfo {
 		avatar.src = data.avatar;
 	}
 
-	setUserInfo(data, name, about, avatar) {
+	setUserInfo(data) {
 		this._nameSelector.textContent = data.name;
 		this._infoSelector.textContent = data.about;
 		this._avatar.src = data.avatar;

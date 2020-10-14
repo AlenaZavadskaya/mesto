@@ -6,16 +6,13 @@ export class Api {
 		this._headers = options.headers;
 		this._body = options.body;
 		this._users = options.users;
-		this._id = options.id;
 		this._me = options.me;
 	}
 
 	getUserData() {
-		return fetch(`${this._url}${'users'}/${'me'}`, {
+			return fetch(`${this._url}${'users'}/${'me'}`, {
 			method: 'GET',
-			headers: {
-				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8'
-			}
+			headers: this._headers
 		})
 			.then(res => {
 				if (res.ok) {
@@ -38,10 +35,9 @@ export class Api {
 		})
 			.then(res => {
 				if (res.ok) {
-					return res.json(); // возвращаем результат работы метода и идём в следующий then
+					return res.json(); 
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
@@ -54,10 +50,9 @@ export class Api {
 		})
 			.then(res => {
 				if (res.ok) {
-					return res.json(); // возвращаем результат работы метода и идём в следующий then
+					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
@@ -69,21 +64,17 @@ export class Api {
 		})
 			.then(res => {
 				if (res.ok) {
-					return res.json(); // возвращаем результат работы метода и идём в следующий then
+					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
 
 	addCards(data) {
-		return fetch(`${this._url}${'cards'}`, {
+		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
 			method: 'POST',
-			headers: {
-				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-				'Content-Type': 'application/json'
-			},
+			headers: this._headers,
 			body: JSON.stringify(data)
 		})
 			.then(res => {
@@ -91,7 +82,6 @@ export class Api {
 					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
@@ -99,10 +89,7 @@ export class Api {
 	deleteCard(data) {
 		return fetch(`${this._url}${'cards'}/${data._id}`, {
 			method: 'DELETE',
-			headers: {
-				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-				'Content-Type': 'application/json'
-			},
+			headers: this._headers,
 			body: JSON.stringify(data)
 		})
 			.then(res => {
@@ -110,18 +97,14 @@ export class Api {
 					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
 
 	addLike(data) {
-		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
+		return fetch(`https://mesto.nomoreparties.co/v1/cohort-16/cards/likes/${data._id}`, {
 			method: 'PUT',
-			headers: {
-				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-				'Content-Type': 'application/json'
-			},
+			headers: this._headers,
 			body: JSON.stringify(data)
 		})
 			.then(res => {
@@ -129,25 +112,20 @@ export class Api {
 					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
 
 	removeLikes(data) {
-		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
+		return fetch(`https://mesto.nomoreparties.co/v1/cohort-16/cards/likes/${data._id}`, {
 			method: 'DELETE',
-			headers: {
-				authorization: '90f4c0de-1eee-42e7-8058-3892f79789d8',
-				'Content-Type': 'application/json'
-			}
+			headers: this._headers
 		})
 			.then(res => {
 				if (res.ok) {
 					return res.json();
 				}
 
-				// если ошибка, отклоняем промис
 				return Promise.reject(`Ошибка: ${res.status}`);
 			});
 	}
