@@ -7,6 +7,7 @@ export class Card {
 		this._templateElement = templateElement;
 		this._api = api;
 		this._ownerId = data.owner._id;
+		this._owner = data.owner;
 		this._likes = data.likes;
 		this._handleCardClick = handleCardClick;
 		this._deleteCard = deleteCard;
@@ -44,7 +45,7 @@ export class Card {
 		this._counter.textContent = this._likes.length;
 
 		this._showLike();
-		this._showBuscket();
+		this._showBuscket(this._card);
 		// Вернём элемент наружу
 		return this._card;
 	}
@@ -90,7 +91,7 @@ export class Card {
 
 	_showBuscket() {
 		this._cardRemove = this._card.querySelector('.element__delete');
-		if (this._ownerId === "5ad8ed3cf9172511f7994134") {
+		if (this._ownerId === this._owner._id) {
 			this._cardRemove.classList.toggle('element__delete-active');
 		}
 	}

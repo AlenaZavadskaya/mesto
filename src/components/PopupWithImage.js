@@ -9,14 +9,11 @@ export default class PopupWithImage extends Popup {
 		this._popupTitle = popupSelector.querySelector('.popup-image__title');
 	}
 
-	open(card) {
-		this._title = card._title;
-		this._image = card._image;
-
-		// заполняем текущими данными поля попапа с картинкой при его открытии
-		this._popupPicture.src = this._image;
-		this._popupTitle.textContent = this._title;
-		this._popupPicture.setAttribute('alt', this._image);
+	open(item) {
+			// заполняем текущими данными поля попапа с картинкой при его открытии
+		this._popupPicture.src = item.link;
+		this._popupTitle.textContent = item.name;
+		this._popupPicture.setAttribute('alt', item.link);
 		super.open();
 	}
 }

@@ -26,7 +26,6 @@ import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import PicturePopup from '../components/PicturePopup.js';
 import { Api } from '../components/Api.js';
 import PopupWithSubmit from '../components/PopupWithSubmit';
 
@@ -48,6 +47,7 @@ const api = new Api({
 });
 
 
+
 // отображение информации о пользователе
 const apiUser = api.getUserData();
 apiUser.then((data) => {
@@ -62,9 +62,11 @@ apiUser.then((data) => {
 // отображение карточек на странице
 const apiCard = api.getInitialCards();
 apiCard.then((el) => {
+	// debugger
 	const cardsList = new Section({
 		items: el,
 		renderer: (item) => {
+			// debugger
 			const card = getCard(item);
 			// Создаём карточку и возвращаем наружу
 			const cardElement = card.generateCard();
@@ -86,42 +88,44 @@ apiCard.then((el) => {
 const profile = new PopupWithForm({
 	popupSelector: popupProfile,
 	submitHandler: () => {
+		debugger
 		profile.renderLoading(true); // показываем загрузку на кнопке
 		// отправляем запрос на редактирование на сервер
 		const apiEditUser = api.editUserData({
-			name: nameInput.value, // 
-			about: jobInput.value //
+			name: nameInput.value, 
+			about: jobInput.value 
 		});
 		apiEditUser.then((data) => {
 			userInfo.setUserInfo(data);
+			debugger
+			profile.renderLoading(false)
+			profile.close();
 		})
 			.catch((err) => {
 				console.log(`Ошибка: ${err}`);
 			})
-			.finally(profile.renderLoading(false));
-		
-		profile.close();
 	}
 });
 
 
 // редактирование аватара
-const avatar = new PicturePopup({
+const avatar = new PopupWithForm({
 	popupSelector: popupAvatar,
 	submitHandler: () => {
+		debugger
 		avatar.renderLoading(true); // показываем загрузку на кнопке
 		const apiUser = api.editAvatar();
 		// отправляем запрос на редактирование на сервер
 		apiUser.then((data) => {
 			const userData = userInfo.getUserInfo(data);
 			userInfo.saveUserInfo(userData, placeNameInput, placeJobInput, placeAvatarInput);
+			debugger
+			avatar.renderLoading(false);
+			avatar.close();
 		})
 			.catch((err) => {
 				console.log(`Ошибка: ${err}`);
 			})
-			.finally(avatar.renderLoading(false));
-
-		avatar.close();
 	}
 })
 
@@ -131,7 +135,7 @@ function getCard(item) {
 	const card = new Card(item, '#element-template',
 		{
 			handleCardClick: () => {
-				popupWithImage.open(card);
+				popupWithImage.open(item);
 				popupWithImage.setEventListeners();
 			}
 		},
@@ -201,7 +205,7 @@ const popupPlaceForm = new PopupWithForm({
 				cardsContainer,
 				'https://mesto.nomoreparties.co/v1/cohort-16/cards'
 			);
-			popupPlaceForm.renderLoading(false)
+			popupPlaceForm.renderLoading(false);
 			newCards.renderItem(data);
 			popupPlaceForm.close();
 		})
@@ -238,12 +242,13 @@ popupProfileOpenButton.addEventListener('click', () => {
 		userInfo.saveUserInfo(userData, nameInput, jobInput, avatarInput);
 		nameInput.value = placeNameInput.textContent;
 		jobInput.value = placeJobInput.textContent;
+		debugger
+		profile.open();
+		profile.setEventListeners();
 	})
 		.catch((err) => {
 			console.log(`Ошибка: ${err}`);
 		})
-	profile.open();
-	profile.setEventListeners();
 });
 
 

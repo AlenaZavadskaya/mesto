@@ -10,7 +10,7 @@ export class Api {
 	}
 
 	getUserData() {
-			return fetch(`${this._url}${'users'}/${'me'}`, {
+		return fetch(`${this._url}${'users'}/${'me'}`, {
 			method: 'GET',
 			headers: this._headers
 		})
@@ -35,7 +35,7 @@ export class Api {
 		})
 			.then(res => {
 				if (res.ok) {
-					return res.json(); 
+					return res.json();
 				}
 
 				return Promise.reject(`Ошибка: ${res.status}`);
