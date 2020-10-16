@@ -1,6 +1,8 @@
 export class Card {
 
 	constructor(data, templateElement, { handleCardClick }, { deleteCard, addLike, removeLike }, api) {
+		
+		// this._data = data;
 		this._title = data.name;
 		this._image = data.link;
 		this._id = data._id;
@@ -13,6 +15,7 @@ export class Card {
 		this._deleteCard = deleteCard;
 		this._addLike = addLike;
 		this._removeLike = removeLike;
+		// this._userData = userData;
 	}
 
 	_getTemplate() {
@@ -45,7 +48,7 @@ export class Card {
 		this._counter.textContent = this._likes.length;
 
 		this._showLike();
-		this._showBuscket(this._card);
+		this.showBuscket(this._card);
 		// Вернём элемент наружу
 		return this._card;
 	}
@@ -89,9 +92,11 @@ export class Card {
 		this._counter.textContent = data.likes.length;
 	}
 
-	_showBuscket() {
+	showBuscket(userData) {
 		this._cardRemove = this._card.querySelector('.element__delete');
-		if (this._ownerId === this._owner._id) {
+		debugger
+		// if (this._ownerId === this._owner._id) {
+			if (this._ownerId === userData._id) {
 			this._cardRemove.classList.toggle('element__delete-active');
 		}
 	}

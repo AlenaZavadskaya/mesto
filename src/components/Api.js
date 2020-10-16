@@ -1,5 +1,3 @@
-import { avatarInput, jobInput, nameInput } from "../utils/constants";
-
 export class Api {
 	constructor(options) {
 		this._url = options.url;
@@ -24,13 +22,13 @@ export class Api {
 			});
 	}
 
-	editUserData() {
+	editUserData({ name, about }) {
 		return fetch(`${this._url}${'users'}/${'me'}`, {
 			method: 'PATCH',
 			headers: this._headers,
 			body: JSON.stringify({
-				name: nameInput.value,
-				about: jobInput.value
+				name,
+				about
 			})
 		})
 			.then(res => {
@@ -42,11 +40,11 @@ export class Api {
 			});
 	}
 
-	editAvatar() {
+	editAvatar({avatar}) {
 		return fetch(`${this._url}${'users'}/${'me'}/${'avatar'}`, {
 			method: 'PATCH',
 			headers: this._headers,
-			body: JSON.stringify({ avatar: avatarInput.value })
+			body: JSON.stringify({avatar})
 		})
 			.then(res => {
 				if (res.ok) {
@@ -71,11 +69,11 @@ export class Api {
 			});
 	}
 
-	addCards(data) {
-		return fetch('https://mesto.nomoreparties.co/v1/cohort-16/cards', {
+	addCards(name, link) {
+		return fetch(`${this._url}${'cards'}`, {
 			method: 'POST',
 			headers: this._headers,
-			body: JSON.stringify(data)
+			body: JSON.stringify(name, link)
 		})
 			.then(res => {
 				if (res.ok) {
@@ -102,7 +100,7 @@ export class Api {
 	}
 
 	addLike(data) {
-		return fetch(`https://mesto.nomoreparties.co/v1/cohort-16/cards/likes/${data._id}`, {
+		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
 			method: 'PUT',
 			headers: this._headers,
 			body: JSON.stringify(data)
@@ -117,17 +115,27 @@ export class Api {
 	}
 
 	removeLikes(data) {
-		return fetch(`https://mesto.nomoreparties.co/v1/cohort-16/cards/likes/${data._id}`, {
+		return fetch(`${this._url}${'cards'}/${'likes'}/${data._id}`, {
 			method: 'DELETE',
 			headers: this._headers
 		})
-			.then(res => {
-				if (res.ok) {
-					return res.json();
-				}
+		.then(res => {
+			if (res.ok) {
+				return res.json();
+			}
 
-				return Promise.reject(`Ошибка: ${res.status}`);
-			});
+			return Promise.reject(`Ошибка: ${res.status}`);
+		});
 	}
+
+	// _getResponseData(res) {
+	// 	if (res.ok) {
+	// 		return res.json(); // возвращаем результат работы метода и идём в следующий then
+	// 	} else {
+
+	// 		// если ошибка, отклоняем промис
+	// 		return Promise.reject(new Error(`Ошибка: ${res.status}`));
+	// 	}
+	// }
 }
 

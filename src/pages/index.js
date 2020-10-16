@@ -46,25 +46,32 @@ const api = new Api({
 	},
 });
 
+Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
+	api.getUserData(),
+	api.getInitialCards()
+])    
+	.then((values) => {    //попадаем сюда когда оба промиса будут выполнены
+	const [userData, initialCards] = values;
 
-
-// отображение информации о пользователе
-const apiUser = api.getUserData();
-apiUser.then((data) => {
-	userInfo.getUserInfo(data);
-	userInfo.setUserInfo(data);
+	// у нас есть все нужные данные, отрисовываем страницу
+		userInfo.getUserInfo(userData);
+		userInfo.setUserInfo(userData);
+	
+		const cardsArray = renderCards(initialCards);
+		debugger
+		
+		cardsArray.rendererItems();
+		// showBascket(userData);
+		
+	})
+.catch((err)=>{     //попадаем сюда если один из промисов завершаться ошибкой
+	console.log(err);
 })
-	.catch((err) => {
-		console.log(`Ошибка: ${err}`);
-	});
 
 
-// отображение карточек на странице
-const apiCard = api.getInitialCards();
-apiCard.then((el) => {
-	// debugger
+function renderCards(data) {
 	const cardsList = new Section({
-		items: el,
+		items: data,
 		renderer: (item) => {
 			// debugger
 			const card = getCard(item);
@@ -77,18 +84,14 @@ apiCard.then((el) => {
 		cardsContainer,
 		'https://mesto.nomoreparties.co/v1/cohort-16/cards'
 	);
-	cardsList.rendererItems();
-})
-	.catch((err) => {
-		console.log(err);
-	});
+	return cardsList
+}
 
 
 // редактирование информации о пользователе
 const profile = new PopupWithForm({
 	popupSelector: popupProfile,
 	submitHandler: () => {
-		debugger
 		profile.renderLoading(true); // показываем загрузку на кнопке
 		// отправляем запрос на редактирование на сервер
 		const apiEditUser = api.editUserData({
@@ -97,7 +100,6 @@ const profile = new PopupWithForm({
 		});
 		apiEditUser.then((data) => {
 			userInfo.setUserInfo(data);
-			debugger
 			profile.renderLoading(false)
 			profile.close();
 		})
@@ -109,17 +111,15 @@ const profile = new PopupWithForm({
 
 
 // редактирование аватара
-const avatar = new PopupWithForm({
-	popupSelector: popupAvatar,
-	submitHandler: () => {
-		debugger
-		avatar.renderLoading(true); // показываем загрузку на кнопке
-		const apiUser = api.editAvatar();
-		// отправляем запрос на редактирование на сервер
-		apiUser.then((data) => {
-			const userData = userInfo.getUserInfo(data);
-			userInfo.saveUserInfo(userData, placeNameInput, placeJobInput, placeAvatarInput);
-			debugger
+const avatar = new PopupWithForm({ 
+	popupSelector: popupAvatar, 
+	submitHandler: () => { 
+		avatar.renderLoading(true); // показываем загрузку на кнопке 
+		const apiUser = api.editAvatar({avatar: avatarInput.value}); 
+		// отправляем запрос на редактирование на сервер 
+		apiUser.then((data) => { 
+			const userData = userInfo.getUserInfo(data); 
+			userInfo.saveUserInfo(userData, placeNameInput, placeJobInput, placeAvatarInput); 
 			avatar.renderLoading(false);
 			avatar.close();
 		})
@@ -144,7 +144,12 @@ function getCard(item) {
 				const popupSubmit = new PopupWithSubmit({
 					popupSelector: popupWithSubmit,
 					submitHandler: () => {
-						const apiDeleteCard = api.deleteCard(card);
+						debugger
+						// api.getUserData()
+						// .then((value) => {    //попадаем сюда когда оба промиса будут выполнены
+						// 	const [userData, initialCards] = values;
+						
+						const apiDeleteCard = api.deleteCard();
 						apiDeleteCard.then(() => {
 							card.removeCard();
 							popupSubmit.close();
@@ -175,7 +180,6 @@ function getCard(item) {
 						console.log(`Ошибка: ${err}`);
 					});
 			}
-
 		},
 		'https://mesto.nomoreparties.co/v1/cohort-16/cards');
 	return card
@@ -191,29 +195,17 @@ const popupPlaceForm = new PopupWithForm({
 			name: titleInput.value, //
 			link: pictureInput.value, //
 		});
-		apiNewCard.then((data) => {
-			const newCards = new Section({
-				items: data,
-				renderer: (item) => {
-					const card = getCard(item);
-					// Создаём карточку и возвращаем наружу
-					const cardElement = card.generateCard();
-					// Добавляем в DOM
-					newCards.addItem(cardElement);
-				}
-			},
-				cardsContainer,
-				'https://mesto.nomoreparties.co/v1/cohort-16/cards'
-			);
-			popupPlaceForm.renderLoading(false);
-			newCards.renderItem(data);
-			popupPlaceForm.close();
-		})
-			.catch((err) => {
-				console.log(`Ошибка: ${err}`);
-			})
-	}
-});
+		apiNewCard.then((data) => { 
+			popupPlaceForm.renderLoading(false); 
+			const newCard = renderCards(data);
+			newCard.renderItem(data);
+			popupPlaceForm.close(); 
+		}) 
+			.catch((err) => { 
+				console.log(`Ошибка: ${err}`); 
+			}) 
+	} 
+}); 
 
 // обработчик попапа с аватаром
 popupAvatarOpenButton.addEventListener('click', () => {
@@ -237,12 +229,12 @@ popupPlaceAddButton.addEventListener('click', () => {
 popupProfileOpenButton.addEventListener('click', () => {
 	editForm.disabledValidation();
 	editForm.ableSubmitButton(); 	// включить кнопку
+	const apiUser = api.getUserData();
 	apiUser.then((data) => {
 		const userData = userInfo.getUserInfo(data);
 		userInfo.saveUserInfo(userData, nameInput, jobInput, avatarInput);
 		nameInput.value = placeNameInput.textContent;
 		jobInput.value = placeJobInput.textContent;
-		debugger
 		profile.open();
 		profile.setEventListeners();
 	})
