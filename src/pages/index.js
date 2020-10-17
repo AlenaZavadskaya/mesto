@@ -27,7 +27,6 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
-import PopupWithSubmit from '../components/PopupWithSubmit';
 
 
 const popupWithImage = new PopupWithImage(popupImage);
@@ -35,7 +34,6 @@ const userInfo = new UserInfo(placeNameInput, placeJobInput, placeAvatarInput);
 const editForm = new FormValidator(config, '#form-edit');
 const cardForm = new FormValidator(config, '#form-card');
 const avatarForm = new FormValidator(config, '#form-avatar');
-
 
 
 const api = new Api({
@@ -158,13 +156,14 @@ function getCard(item, user) {
 		},
 		{
 			deleteCard: () => { // удаление 
-				const popupSubmit = new PopupWithSubmit({
+				const popupSubmit = new PopupWithForm({
 					popupSelector: popupWithSubmit,
 					submitHandler: () => {
-							const apiDeleteCard = api.deleteCard(item);
+						const apiDeleteCard = api.deleteCard(item);
 						apiDeleteCard.then(() => {
 							card.removeCard();
 							popupSubmit.close();
+							// popupSubmit.reset();
 						})
 							.catch((err) => {
 								console.log(`Ошибка: ${err}`);
@@ -196,8 +195,6 @@ function getCard(item, user) {
 		'https://mesto.nomoreparties.co/v1/cohort-16/cards');
 	return card
 }
-
-
 
 
 // обработчик попапа с аватаром
