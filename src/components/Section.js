@@ -23,8 +23,8 @@ export default class Section {
 
 	// Перебираем каждый элемент массива
 	rendererItems() {
-			this._items.forEach(item => {
-				this._renderer({ name: item.name, link: item.link, _id: item._id, owner: item.owner, likes: item.likes });
+		this._items.forEach(item => {
+				this._renderer({ name: item.name, link: item.link, _id: item._id, owner: item.owner._id, ownerId: item.owner._id, likes: item.likes });
 			})
 	}
 }

@@ -1,21 +1,19 @@
 export class Card {
 
-	constructor(data, templateElement, { handleCardClick }, { deleteCard, addLike, removeLike }, api) {
-		
-		// this._data = data;
+	constructor(data, user, templateElement, { handleCardClick }, { deleteCard, addLike, removeLike }, api) {
+		this._user = user;
 		this._title = data.name;
 		this._image = data.link;
 		this._id = data._id;
 		this._templateElement = templateElement;
 		this._api = api;
-		this._ownerId = data.owner._id;
+		this._ownerId = data.ownerId;
 		this._owner = data.owner;
 		this._likes = data.likes;
 		this._handleCardClick = handleCardClick;
 		this._deleteCard = deleteCard;
 		this._addLike = addLike;
 		this._removeLike = removeLike;
-		// this._userData = userData;
 	}
 
 	_getTemplate() {
@@ -48,7 +46,7 @@ export class Card {
 		this._counter.textContent = this._likes.length;
 
 		this._showLike();
-		this.showBuscket(this._card);
+		this.showBuscket();
 		// Вернём элемент наружу
 		return this._card;
 	}
@@ -92,18 +90,16 @@ export class Card {
 		this._counter.textContent = data.likes.length;
 	}
 
-	showBuscket(userData) {
+	showBuscket() {
 		this._cardRemove = this._card.querySelector('.element__delete');
-		debugger
-		// if (this._ownerId === this._owner._id) {
-			if (this._ownerId === userData._id) {
+			if (this._ownerId ===  this._user._id) {
 			this._cardRemove.classList.toggle('element__delete-active');
 		}
 	}
 
 	_showLike() {
 		this._likes.forEach(element => {
-			if (element._id === '5ad8ed3cf9172511f7994134') {
+			if (element._id === this._user._id) {
 				this._likeCard();
 			}
 		});

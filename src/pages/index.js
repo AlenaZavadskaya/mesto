@@ -46,35 +46,31 @@ const api = new Api({
 	},
 });
 
-Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
-	api.getUserData(),
-	api.getInitialCards()
-])    
-	.then((values) => {    //попадаем сюда когда оба промиса будут выполнены
-	const [userData, initialCards] = values;
 
-	// у нас есть все нужные данные, отрисовываем страницу
-		userInfo.getUserInfo(userData);
-		userInfo.setUserInfo(userData);
-	
-		const cardsArray = renderCards(initialCards);
-		debugger
-		
-		cardsArray.rendererItems();
-		// showBascket(userData);
-		
-	})
-.catch((err)=>{     //попадаем сюда если один из промисов завершаться ошибкой
-	console.log(err);
-})
+	Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
+		api.getUserData(),
+		api.getInitialCards()
+	])
+		.then((values) => {    //попадаем сюда когда оба промиса будут выполнены
+			const [userData, initialCards] = values;
+
+			// у нас есть все нужные данные, отрисовываем страницу
+			userInfo.getUserInfo(userData);
+			userInfo.setUserInfo(userData);
+
+			const cardsArray = renderCards(initialCards, userData);
+			cardsArray.rendererItems();
+		})
+		.catch((err) => {     //попадаем сюда если один из промисов завершаться ошибкой
+			console.log(err);
+		})
 
 
-function renderCards(data) {
+function renderCards(data, user) {
 	const cardsList = new Section({
-		items: data,
+		items: data, 
 		renderer: (item) => {
-			// debugger
-			const card = getCard(item);
+					const card = getCard(item, user);
 			// Создаём карточку и возвращаем наружу
 			const cardElement = card.generateCard();
 			// Добавляем в DOM
@@ -86,6 +82,27 @@ function renderCards(data) {
 	);
 	return cardsList
 }
+
+// добавление новых карточек на страницу
+const popupPlaceForm = new PopupWithForm({
+	popupSelector: popupPlace,
+	submitHandler: () => {
+		popupPlaceForm.renderLoading(true); // показываем загрузку на кнопке
+		const apiNewCard = api.addCards({
+			name: titleInput.value, //
+			link: pictureInput.value, //
+		});
+		apiNewCard.then((data) => { 
+			popupPlaceForm.renderLoading(false); 
+			const newCard = renderCards(data, data.owner._id);
+			newCard.renderItem(data, data.owner._id);
+			popupPlaceForm.close(); 
+		}) 
+			.catch((err) => { 
+				console.log(`Ошибка: ${err}`); 
+			}) 
+	} 
+}); 
 
 
 // редактирование информации о пользователе
@@ -131,8 +148,8 @@ const avatar = new PopupWithForm({
 
 
 // карточка
-function getCard(item) {
-	const card = new Card(item, '#element-template',
+function getCard(item, user) {
+	const card = new Card(item, user, '#element-template',
 		{
 			handleCardClick: () => {
 				popupWithImage.open(item);
@@ -144,19 +161,14 @@ function getCard(item) {
 				const popupSubmit = new PopupWithSubmit({
 					popupSelector: popupWithSubmit,
 					submitHandler: () => {
-						debugger
-						// api.getUserData()
-						// .then((value) => {    //попадаем сюда когда оба промиса будут выполнены
-						// 	const [userData, initialCards] = values;
-						
-						const apiDeleteCard = api.deleteCard();
+							const apiDeleteCard = api.deleteCard(item);
 						apiDeleteCard.then(() => {
 							card.removeCard();
 							popupSubmit.close();
 						})
 							.catch((err) => {
 								console.log(`Ошибка: ${err}`);
-							});
+							});					
 					}
 				});
 				popupSubmit.open();
@@ -186,26 +198,7 @@ function getCard(item) {
 }
 
 
-// добавление новых карточек на страницу
-const popupPlaceForm = new PopupWithForm({
-	popupSelector: popupPlace,
-	submitHandler: () => {
-		popupPlaceForm.renderLoading(true); // показываем загрузку на кнопке
-		const apiNewCard = api.addCards({
-			name: titleInput.value, //
-			link: pictureInput.value, //
-		});
-		apiNewCard.then((data) => { 
-			popupPlaceForm.renderLoading(false); 
-			const newCard = renderCards(data);
-			newCard.renderItem(data);
-			popupPlaceForm.close(); 
-		}) 
-			.catch((err) => { 
-				console.log(`Ошибка: ${err}`); 
-			}) 
-	} 
-}); 
+
 
 // обработчик попапа с аватаром
 popupAvatarOpenButton.addEventListener('click', () => {

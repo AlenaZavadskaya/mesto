@@ -88,7 +88,7 @@ export class Api {
 		return fetch(`${this._url}${'cards'}/${data._id}`, {
 			method: 'DELETE',
 			headers: this._headers,
-			body: JSON.stringify(data)
+			body: JSON.stringify()
 		})
 			.then(res => {
 				if (res.ok) {
@@ -127,15 +127,5 @@ export class Api {
 			return Promise.reject(`Ошибка: ${res.status}`);
 		});
 	}
-
-	// _getResponseData(res) {
-	// 	if (res.ok) {
-	// 		return res.json(); // возвращаем результат работы метода и идём в следующий then
-	// 	} else {
-
-	// 		// если ошибка, отклоняем промис
-	// 		return Promise.reject(new Error(`Ошибка: ${res.status}`));
-	// 	}
-	// }
 }
 
