@@ -5,7 +5,7 @@
 
 ## [Ссылка на сайт](https://alenazavadskaya.github.io/mesto/index.html )
 
-![](images/main_page.jpg)
+![](src/images/main_page.jpg)
 
 ### :rocket: Технологии
 - JavaScript
